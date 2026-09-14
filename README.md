@@ -1,1487 +1,637 @@
-LOG-OS
+<div align="center">
 
-Moderation with memory.
+# LOG-OS
 
-Govern your community. Don't just moderate it.
+### Moderation with memory.
 
-LOG-OS is a community operations, governance, security, and memory platform designed to help people operate complex online communities without losing the context behind their decisions.
+**A Discord community-operations system for moderation, verification, staff oversight, security intelligence, appeals, voice operations, activity, and community tooling.**
 
-It began as a Discord moderation system and has grown into a broader operating-system architecture connecting moderation, verification, staff operations, authority, access control, appeals, incident response, security monitoring, community features, persistent history, and AI-assisted analysis.
+[![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Red-DiscordBot](https://img.shields.io/badge/Red--DiscordBot-Cog-c0392b)](https://docs.discord.red/)
+[![Discord](https://img.shields.io/badge/Platform-Discord-5865F2?logo=discord&logoColor=white)](https://discord.com/)
+![Archive](https://img.shields.io/badge/Archive-Original%20%E2%86%92%20v48-202833)
+![Latest family](https://img.shields.io/badge/Latest-v40%20family-5865F2)
 
-A community is a system, not a collection of isolated commands.
+**[Latest — v48](./Latest/logos_mod_v48.py)** · **[Latest family](#latest-family)** · **[Version archive](#version-archive)** · **[Feature map](#what-log-os-covers)** · **[Installation](#installation)**
 
-What is LOG-OS?
+</div>
 
-Traditional moderation bots expose commands such as:
+---
 
-warn
-mute
-kick
-ban
-unban
-purge
-lock
+## What is LOG-OS?
 
-Those commands are useful, but they do not by themselves create an operating model.
+LOG-OS is a large [Red-DiscordBot](https://docs.discord.red/) cog that grew from a conventional moderation system into a broader **community operations platform**.
 
-LOG-OS treats each action as part of a larger chain:
+Most moderation systems can be described like this:
 
+```text
+Member event
+    ↓
+Command
+    ↓
+Punishment
+    ↓
+Log entry
+```
+
+LOG-OS is built around a larger operational loop:
+
+```text
 Context
    ↓
-Observation
+Staff action
    ↓
-Interpretation
+Moderation / verification / security workflow
    ↓
-Authority Check
+Persistent record
    ↓
-Policy Check
+Review / appeal / follow-up
    ↓
-Decision
-   ↓
-Action
-   ↓
-Record
-   ↓
-Review / Appeal
-   ↓
-Outcome
-   ↓
-Future Context
+Future context
+```
 
-A warning, permission change, verification failure, raid, and appeal can therefore exist as different events inside the same operational environment.
+The result is a bot that does more than execute commands. It keeps the surrounding **history, staff workflow, verification state, security signals, community systems, and operational records** connected.
 
-LOG-OS is designed to preserve the surrounding context:
+> **Every action has context. Every decision leaves a record.**
 
-who was involved
+---
 
-what happened before the event
+## Latest snapshot
 
-what evidence exists
+### [LOG-OS v48](./Latest/logos_mod_v48.py)
 
-what was inferred
+The supplied v48 source is the largest snapshot in this archive:
 
-what policy applied
+- **19,060 lines** of Python
+- **66 classes**
+- **134 command decorators**
+- **32 `discord.ui.View` classes**
+- **85 button decorators**
+- **6 select-menu decorators**
+- **14 background task loops**
+- Red-DiscordBot / discord.py architecture
+- PostgreSQL persistence through `asyncpg`, with memory fallback where supported
 
-who had authority
+v48 includes the mature feature families accumulated across the archive, including moderation, appeals, verification, tickets, voice systems, staff dashboards, setup tooling, clubs, invite intelligence, age verification, XP/profiles, alt intelligence, themes, health/status tooling, warning-expiry controls, and more.
 
-what action was taken
+If you are browsing the project for the first time, start with **[v48](./Latest/logos_mod_v48.py)** and use the archive below to see how the system evolved.
 
-whether the action was reviewed
+---
 
-what happened afterward
+# Repository layout
 
-The objective is not to automate every decision.
+```text
+LOG-OS/
+├── README.md
+├── Latest/
+│   ├── logos_mod_v40.py
+│   ├── logos_mod_v42.py
+│   ├── logos_mod_v43.py
+│   ├── logos_mod_v44.py
+│   ├── logos_mod_v45.py
+│   ├── logos_mod_v46.py
+│   ├── logos_mod_v47.py
+│   └── logos_mod_v48.py
+└── versions/
+    ├── logos_mod.py
+    ├── logos_mod_v2.py
+    ├── logos_mod_v3.py
+    ├── ...
+    └── logos_mod_v48.py
+```
 
-The objective is to give humans and authorized automation enough context to make better decisions.
+- **`Latest/`** contains the modern **v40 family** for quick browsing and deployment comparison.
+- **`versions/`** preserves the complete source history supplied with this repository.
+- The archive does not include source snapshots named **v5, v6, v7, or v41**.
 
-Core Philosophy
+# Latest family
 
-LOG-OS is built around several important distinctions.
+The `Latest/` folder is the fastest way to inspect the modern LOG-OS line. These versions represent the v40-era expansion into invite intelligence, security correlation, progression, identity intelligence, and health tooling.
 
-Evidence is not inference
+| Version | Focus | Source |
+|---|---|---|
+| **v40** | Invite intelligence foundation | **[Open v40](./Latest/logos_mod_v40.py)** |
+| **v42** | Invite bans/blocklists, join velocity, staff-role expansion | **[Open v42](./Latest/logos_mod_v42.py)** |
+| **v43** | Continued v40-family refinement | **[Open v43](./Latest/logos_mod_v43.py)** |
+| **v44** | Expanded help and softban-appeal workflows | **[Open v44](./Latest/logos_mod_v44.py)** |
+| **v45** | XP, levels, profiles, achievements, progression | **[Open v45](./Latest/logos_mod_v45.py)** |
+| **v46** | Alt-intelligence command family and themes | **[Open v46](./Latest/logos_mod_v46.py)** |
+| **v47** | Confirmed-alt networks, offender registry, invite ranking | **[Open v47](./Latest/logos_mod_v47.py)** |
+| **v48** | Health/status, warning-expiry, verification and club controls | **[Open v48](./Latest/logos_mod_v48.py)** |
+
+> **Recommended starting point:** browse **[v48](./Latest/logos_mod_v48.py)** for the newest snapshot, then use the table above or the complete archive to trace individual systems backward.
+
+---
+
+# What LOG-OS covers
+
+LOG-OS is intentionally broader than a punishment-command cog.
+
+| Domain | Included in the archive |
+|---|---|
+| **Moderation** | Warnings, mute/timeout, kicks, bans, unbans, notes, purge, moderation history, staff statistics, conflict checks |
+| **Appeals & review** | Appeals, resolution workflows, softban appeals, appeal routing/modes, resend/recovery tools |
+| **Verification** | Verification panels, manual verification, age verification, verification sessions, staff verification workflow, force verification |
+| **Security intelligence** | Abuse flags, conflict checks, invite intelligence, join velocity, alt checks, alt history, confirmed-alt networks, offender tracking |
+| **Tickets** | Ticket panels, ticket listing, reopening, roles, archive workflow |
+| **Voice operations** | Join-to-create voice, member/staff controls, staff VCs, VC panels, VC moderation oversight |
+| **Staff operations** | ModDash, moderator management, staff-role configuration, superuser/staff controls |
+| **Community** | Clubs, club panels, sponsor panels, color roles, ping roles, welcome/community utilities |
+| **Activity & progression** | Activity panel, XP, levels, rank, leaderboards, profiles, achievements, configurable multipliers/roles |
+| **Server administration** | Setup wizard, backups/restores, role panels, server stats, health checks, themes, configuration commands |
+| **Persistence** | PostgreSQL via `asyncpg` with in-memory fallback where supported |
+
+The defining idea is integration: **moderation remembers, verification has context, security can correlate relationships, and staff actions remain part of an operational history.**
+
+---
+
+# Core principles
 
-An observation describes something that happened.
-
-An inference describes what the system believes that observation might mean.
-
-Observation:
-Account A joined at 19:42.
-
-Inference:
-Account A may be related to the current join wave.
-
-The second statement should never silently become the first.
-
-Risk is not guilt
-
-A high-risk pattern can justify additional verification or investigation.
-
-It does not automatically prove misconduct.
-
-Risk is therefore treated as a reason to investigate, not as a substitute for evidence.
-
-Confidence is not authority
-
-A system can be highly confident that something is suspicious without having permission to act however it wants.
-
-"I think this is happening."
-
-is not equivalent to:
-
-"I am authorized to act on it."
-
-Authority is independently evaluated.
-
-Containment is not punishment
-
-A temporary access restriction, verification hold, security hold, or lockdown can protect a community without being treated as a final disciplinary judgment.
-
-LOG-OS separates immediate protection from final adjudication.
-
-Automation is not sovereignty
-
-Automation can enforce explicit policy, preserve evidence, perform repetitive operations, and react to known conditions.
-
-It should not become the unquestionable owner of the community.
-
-High-impact or ambiguous decisions can remain subject to authorized human review.
-
-The Spiral
-
-The Spiral is the reasoning model behind LOG-OS.
-
-It describes how the system should move from an event toward an action without collapsing observation, interpretation, authority, and outcome into one step.
-
-OBSERVE
-   ↓
-DISTINGUISH
-   ↓
-INTERPRET
-   ↓
-CHECK CENTER
-   ↓
-CHECK POLICY
-   ↓
-CHECK AUTHORITY
-   ↓
-ACT PROPORTIONALLY
-   ↓
-OBSERVE OUTCOME
-   ↓
-LEARN
-   ↓
-RE-CENTER
-   └──────────────→
-
-Observe
-
-Collect relevant events:
-
-messages
-
-moderation actions
-
-permission changes
-
-member joins
-
-verification events
-
-invites
-
-voice state
-
-system health
-
-case updates
-
-Distinguish
-
-Separate:
-
-Known
-Unknown
-Inferred
-Contradicted
-Unverified
-Confirmed
-
-Interpret
-
-Correlate observations into possible explanations without treating correlation as proof.
-
-Check Center
-
-Return to the actual purpose of the response.
-
-A raid may require community continuity.
-
-A stalking case may require protection of a person.
-
-An administrative incident may require infrastructure preservation.
-
-Check Policy and Authority
-
-Determine:
-
-what policy applies
-
-what action is allowed
-
-who can perform it
-
-where their authority applies
-
-whether approval is required
-
-whether the current security state changes available authority
-
-Act Proportionally
-
-The response should match the situation.
-
-Observe Outcome
-
-The result of an action becomes another event.
-
-The system can then determine whether the action worked, created a secondary problem, or should be reconsidered.
-
-Learn and Re-Center
-
-Outcomes become future context without turning historical decisions into unquestionable truth.
-
-System Architecture
-
-LOG-OS can be understood as several connected layers.
-
-                    LOG-OS
-                       │
-        ┌──────────────┼──────────────┐
-        │              │              │
-    Governance       Security      Community
-        │              │              │
-   Authority        Sentinel       Members
-   Policy           DEFCON         Profiles
-   Appeals          E0-1           Clubs
-   Cases            E0-2           Activity
-        │              │              │
-        └──────────────┼──────────────┘
-                       │
-                 Event / Case Layer
-                       │
-                 Persistent Memory
-                       │
-                    Integrations
-
-The architecture is intentionally interconnected.
-
-A permission event can matter to security.
-
-A verification event can matter to access.
-
-A moderation case can matter to an appeal.
-
-A raid can create temporary security restrictions.
-
-An outcome can become future context.
-
-Moderation
-
-LOG-OS provides the conventional moderation operations expected from a serious community platform.
-
-Member actions
-
-warnings
-
-timeouts
-
-mutes
-
-kicks
-
-bans
-
-unbans
-
-moderation notes
-
-member history
-
-Channel controls
-
-purge
-
-slowmode
-
-lock
-
-unlock
-
-channel restrictions
-
-controlled access changes
-
-Administrative records
-
-Important actions can contain:
-
-action ID
-
-case ID
-
-timestamp
-
-acting authority
-
-affected member/resource
-
-reason
-
-policy context
-
-review state
-
-outcome
-
-The purpose is accountability.
-
-A moderator should not have to reconstruct an important decision from scattered Discord messages months later.
-
-Cases and Persistent Memory
-
-A LOG-OS case is more than a moderation log.
-
-It is a container for the operational context surrounding an incident or decision.
-
-CASE
-├── Observations
-├── Evidence
-├── Correlations
-├── Hypotheses
-├── Counterevidence
-├── Actors
-├── Actions
-├── Authority
-├── Policy
-├── Appeals
-├── Related Cases
-└── Outcomes
-
-This makes it possible to ask:
-
-Why did this action happen?
-
-What evidence supported it?
-
-Who had authority?
-
-Was it appealed?
-
-What changed afterward?
-
-Was the original interpretation later shown to be wrong?
-
-Persistent memory turns individual actions into institutional context.
-
-Authority
-
-LOG-OS separates:
-
-ROLE
-CAPABILITY
-SCOPE
-
-Roles
-
-Roles describe responsibility.
-
-Examples:
-
-Administrator
-
-Senior Moderator
-
-Moderator
-
-Junior Moderator
-
-Appeals Reviewer
-
-Verification Agent
-
-Security Analyst
-
-Ticket Agent
-
-Community Manager
-
-Observer
-
-Capabilities
-
-Capabilities describe what someone or something can do.
-
-Examples:
-
-moderation.warn
-moderation.timeout
-moderation.ban
-
-cases.view
-cases.modify
-cases.approve
-
-appeals.view
-appeals.review
-
-security.investigate
-security.contain
-
-policy.view
-policy.modify
-
-authority.delegate
-authority.revoke
-
-Scope
-
-Scope determines where authority applies.
-
-A capability can be limited to:
-
-server
-
-category
-
-channel
-
-voice environment
-
-case
-
-ticket
-
-event
-
-security incident
-
-feature
-
-This allows:
-
-"This person can perform this action, but only here."
-
-Authority can also be subject to temporary leases, approvals, reauthentication, emergency restrictions, and operational state.
-
-Access Control
-
-LOG-OS treats access as a dynamic state.
-
-Possible states include:
-
-UNVERIFIED
-VERIFIED
-AGE VERIFIED
-TRUSTED
-READ ONLY
-SOFTBANNED
-VOICE RESTRICTED
-CONTAINED
-APPEAL ONLY
-EVENT ACCESS
-STAFF ONLY
-LOCKDOWN
-
-This allows precise restrictions.
-
-For example, a softban-like state could permit public reading while preventing messaging or thread creation. Voice permissions can be handled independently.
-
-Temporary restrictions can operate as leases, allowing the previous state to be restored accurately instead of reconstructed by guesswork.
-
-Verification
-
-Verification is treated as an access-control process rather than simply a button.
-
-A typical lifecycle is:
-
-JOIN
- ↓
-INITIAL STATE
- ↓
-VERIFICATION
- ↓
-REVIEW IF REQUIRED
- ↓
-AUTHORIZED ACCESS
-
-Verification can interact with:
-
-raid controls
-
-account-risk signals
-
+### Moderation with memory
+
+A moderation action should not become an isolated line in a log channel. LOG-OS preserves context around members, staff actions, cases, appeals, verification, and security events.
+
+### Risk is not guilt
+
+LOG-OS contains security and identity-correlation systems, but suspicious signals are meant to provide **context for review**, not automatically establish wrongdoing.
+
+### Staff actions matter too
+
+The system includes conflict checks, abuse flagging, action oversight, reason requirements, cooldowns, and review workflows because moderation authority itself should remain observable.
+
+### Community operations, not only punishment
+
+Clubs, activity, progression, role panels, tickets, voice tooling, sponsors, profiles, and other community systems sit beside moderation and security rather than in an unrelated second bot.
+
+---
+
+# Version archive
+
+This repository preserves historical LOG-OS source snapshots so the project can be inspected **as it evolved** rather than exposing only the newest build.
+
+> **Note:** The supplied archive does not contain snapshots named **v5, v6, v7, or v41**. The table below links only files that were actually present in the uploaded archive.
+
+## Quick navigator
+
+| Era | Versions |
+|---|---|
+| **Foundation** | [Original](./versions/logos_mod.py) · [v2](./versions/logos_mod_v2.py) · [v3](./versions/logos_mod_v3.py) · [v4](./versions/logos_mod_v4.py) |
+| **Persistence / verification / voice** | [v8](./versions/logos_mod_v8.py) · [v9](./versions/logos_mod_v9.py) · [v10](./versions/logos_mod_v10.py) · [v11](./versions/logos_mod_v11.py) · [v12](./versions/logos_mod_v12.py) |
+| **Community expansion** | [v13](./versions/logos_mod_v13.py) · [v14](./versions/logos_mod_v14.py) · [v15](./versions/logos_mod_v15.py) · [v16](./versions/logos_mod_v16.py) · [v17](./versions/logos_mod_v17.py) · [v18](./versions/logos_mod_v18.py) · [v19](./versions/logos_mod_v19.py) |
+| **Operations / staff tooling** | [v20](./versions/logos_mod_v20.py) · [v21](./versions/logos_mod_v21.py) · [v22](./versions/logos_mod_v22.py) · [v23](./versions/logos_mod_v23.py) · [v24](./versions/logos_mod_v24.py) · [v25](./versions/logos_mod_v25.py) · [v26](./versions/logos_mod_v26.py) · [v27](./versions/logos_mod_v27.py) · [v28](./versions/logos_mod_v28.py) |
+| **Verification / command-system expansion** | [v29](./versions/logos_mod_v29.py) · [v30](./versions/logos_mod_v30.py) · [v31](./versions/logos_mod_v31.py) · [v32](./versions/logos_mod_v32.py) · [v33](./versions/logos_mod_v33.py) · [v34](./versions/logos_mod_v34.py) · [v35](./versions/logos_mod_v35.py) · [v36](./versions/logos_mod_v36.py) · [v37](./versions/logos_mod_v37.py) · [v38](./versions/logos_mod_v38.py) |
+| **Security / intelligence expansion** | [v39](./versions/logos_mod_v39.py) · [v40](./versions/logos_mod_v40.py) · [v42](./versions/logos_mod_v42.py) · [v43](./versions/logos_mod_v43.py) · [v44](./versions/logos_mod_v44.py) · [v45](./versions/logos_mod_v45.py) · [v46](./versions/logos_mod_v46.py) · [v47](./versions/logos_mod_v47.py) · **[v48](./versions/logos_mod_v48.py)** |
+
+---
+
+## Evolution at a glance
+
+The descriptions below are based on observable command/class additions between the supplied snapshots. They are intended as an archive guide, not a complete changelog.
+
+| Snapshot | Approx. size | Major visible evolution |
+|---|---:|---|
+| **[Original](./versions/logos_mod.py)** | 487 lines | Core moderation foundation: warn, mute, kick, ban, unban, notes, purge, audit/server stats |
+| **[v2](./versions/logos_mod_v2.py)** | 584 | Appeals, abuse flagging, appeal resolution |
+| **[v3](./versions/logos_mod_v3.py)** | 847 | Action records and member-facing history |
+| **[v4](./versions/logos_mod_v4.py)** | 1,229 | Ticket workflow, message-deletion oversight, interactive ticket UI |
+| **[v8](./versions/logos_mod_v8.py)** | 2,893 | Database layer, verification, moderation utilities, voice systems, audit listeners |
+| **[v9](./versions/logos_mod_v9.py)** | 3,588 | Expanded moderator/council voice-control system and staff VC tooling |
+| **[v11](./versions/logos_mod_v11.py)** | 4,293 | Role configuration and interactive role panels |
+| **[v13](./versions/logos_mod_v13.py)** | 4,465 | Color-role tooling |
+| **[v14](./versions/logos_mod_v14.py)** | 4,608 | Ping-role tooling |
+| **[v15](./versions/logos_mod_v15.py)** | 5,198 | Activity panel and first major clubs/community expansion |
+| **[v16](./versions/logos_mod_v16.py)** | 5,655 | Interactive clubs panel, descriptions and emblems |
+| **[v17](./versions/logos_mod_v17.py)** | 6,014 | Sponsor/community-server panel workflow |
+| **[v18](./versions/logos_mod_v18.py)** | 6,320 | Welcome/nickname-management expansion |
+| **[v19](./versions/logos_mod_v19.py)** | 6,226 | Verification-prefix/reapply workflow |
+| **[v20](./versions/logos_mod_v20.py)** | 6,662 | Server backup and restore commands |
+| **[v21](./versions/logos_mod_v21.py)** | 7,166 | Superuser tooling, ticket roles/archive, expanded staff operations |
+| **[v22](./versions/logos_mod_v22.py)** | 7,788 | **ModDash** introduced |
+| **[v23](./versions/logos_mod_v23.py)** | 8,255 | Richer moderation UI: reason/timeout/warn/kick/ban interaction views |
+| **[v25](./versions/logos_mod_v25.py)** | 8,899 | Softban-management surface and superuser VC panel |
+| **[v26](./versions/logos_mod_v26.py)** | 10,168 | Large interactive **setup wizard** |
+| **[v28](./versions/logos_mod_v28.py)** | 10,268 | Conflict-check command and expanded setup-navigation UI |
+| **[v29](./versions/logos_mod_v29.py)** | 10,724 | Age-verification workflow |
+| **[v31](./versions/logos_mod_v31.py)** | 11,119 | Moderator-target cooldown inspection/control |
+| **[v32](./versions/logos_mod_v32.py)** | 11,442 | Age-verification logs and richer review UI |
+| **[v33](./versions/logos_mod_v33.py)** | 12,237 | Large slash-command grouping experiment / command-surface expansion |
+| **[v34](./versions/logos_mod_v34.py)** | 11,541 | Command surface consolidated after v33 while retaining later feature families |
+| **[v35](./versions/logos_mod_v35.py)** | 11,801 | Club display tooling |
+| **[v36](./versions/logos_mod_v36.py)** | 12,147 | Club premium/promotion workflow |
+| **[v38](./versions/logos_mod_v38.py)** | 12,252 | Role-panel removal/management tooling |
+| **[v39](./versions/logos_mod_v39.py)** | 13,150 | Major verification-session expansion: staff channel, modes, approvals, ID checks |
+| **[v40](./versions/logos_mod_v40.py)** | 13,873 | Invite intelligence: allow/revoke/purge/log/mode/list + invite listeners |
+| **[v42](./versions/logos_mod_v42.py)** | 15,253 | Invite bans/blocklists/checking, staff-role tooling and join-velocity reporting |
+| **[v44](./versions/logos_mod_v44.py)** | 15,988 | Expanded help system and structured softban-appeal workflow |
+| **[v45](./versions/logos_mod_v45.py)** | 17,141 | XP, levels, profiles, achievements, leaderboard and progression system |
+| **[v46](./versions/logos_mod_v46.py)** | 18,005 | Alt-intelligence command family and theme support |
+| **[v47](./versions/logos_mod_v47.py)** | 18,691 | Confirmed-alt networks, alt status, offender registry and invite ranking |
+| **[v48](./versions/logos_mod_v48.py)** | 19,060 | Server-health, warning-expiry, reason-window, force-verification and club-stop controls |
+
+Snapshots not called out individually above are still linked in the [Quick navigator](#quick-navigator) and may contain internal refinements, fixes, or implementation changes even when no large new command family is obvious from the public surface.
+
+---
+
+# Feature families in v48
+
+## Moderation
+
+```text
+warn       mute       kick       ban        unban
+notes      purge      lock       unlock     slowmode
+warns      clearwarn  modstats   auditlog   conflictcheck
+```
+
+LOG-OS also tracks moderation action metadata, IDs, reasons, receipts, history, cooldowns, and oversight workflows.
+
+## Appeals
+
+```text
+appeal
+resolveappeal
+appealchannel
+appealmode
+softbanappeals
+resendappeal
+resendappealdecision
+```
+
+Appeal workflows are connected back to moderation state instead of being treated as an unrelated generic support conversation.
+
+## Verification
+
+```text
+verifypanel
+manualverify
+verify
+verifymode
+verifysessions
+verifystaffchannel
+approveverify
+cancelsession
+forceverify
+idcheck
+checkage
+revokeage
+agelog
+```
+
+Verification evolved from a panel into a larger admission/review system with staff workflow and age-verification support.
+
+## Invite intelligence
+
+```text
+invitelist
+invitelog
+invitemode
+inviteallow
+inviterevoke
+invitepurge
+invitecheck
+inviteban
+inviteunban
+inviteblocklist
+inviterank
+velocityreport
+```
+
+Invite creation/deletion and member-join context are also observed by listeners in later snapshots.
+
+## Alt / identity intelligence
+
+```text
+altcheck
+altconfig
+altdeny
+althistory
+altconfirm
+altnetwork
+altstatus
+offenders
+```
+
+The later archive includes multi-signal account relationship analysis and confirmed-alt network tooling rather than relying on one binary indicator.
+
+## Voice operations
+
+```text
+vcsetup
+vcpanel
+vclist
+vcdelete
+vcstafflist
+staffvcdelete
+suvcpanel
+```
+
+LOG-OS contains member, moderator and higher-trust voice-control workflows alongside audit attribution and action-reason oversight.
+
+## Tickets
+
+```text
+ticketpanel
 tickets
-
-staff review
-
-access leases
-
-security incidents
-
-The objective is:
-
-What access state should this identity currently possess?
-
-Appeals and Review
-
-Governance requires the ability to reconsider decisions.
-
-LOG-OS treats appeals as part of the lifecycle:
-
-ACTION
-  ↓
-CASE
-  ↓
-APPEAL
-  ↓
-REVIEW
-  ↓
-DECISION
-  ↓
-OUTCOME
-
-Review can include:
-
-evidence reassessment
-
-case review
-
-reviewer separation
-
-conflict checks
-
-appeal history
-
-policy comparison
-
-outcome tracking
-
-This creates a feedback mechanism instead of a one-way moderation pipeline.
-
-Security
-
-LOG-OS security is defensive.
-
-It is designed to protect authorized communities, infrastructure, staff, and members.
-
-Security monitoring can cover:
-
-permission changes
-
-privilege escalation
-
-destructive actions
-
-verification anomalies
-
-raid indicators
-
-invite activity
-
-account patterns
-
-system health
-
-configuration changes
-
-administrative behavior
-
-Security is integrated with governance because security events can change what authority should be effective.
-
-Sentinel
-
-Sentinel is the destructive-authority and infrastructure protection layer.
-
-Its purpose is to prevent one compromised or misused authority path from becoming unlimited destructive throughput.
-
-Potential protections include:
-
-protected resources
-
-privilege escalation detection
-
-permission drift detection
-
-action budgets
-
-destructive-action thresholds
-
-staff behavior correlation
-
-emergency freezes
-
-tripwires
-
-snapshots
-
-rollback
-
-blast-radius analysis
-
-exposure scanning
-
-stale authority detection
-
-break-glass controls
-
-Lifecycle:
-
-DETECT
- ↓
-ATTRIBUTE
- ↓
-CONTAIN
- ↓
-FREEZE DANGEROUS AUTHORITY
- ↓
-PROTECT
- ↓
-RECOVER
- ↓
-PRESERVE EVIDENCE
-
-Sentinel treats catastrophic administrative incidents as infrastructure failures under hostile conditions, not simply as ordinary moderation events.
-
-DEFCON
-
-DEFCON provides an operational state above ordinary permissions.
-
-DEFCON 5 — NORMAL
-DEFCON 4 — WATCH
-DEFCON 3 — ELEVATED
-DEFCON 2 — RESTRICTED
-DEFCON 1 — LOCKDOWN
-DEFCON 0 — SAFE MODE
-
-The purpose is to change effective authority without necessarily rewriting the entire permission structure.
-
-For example:
-
-NORMAL
-
-Moderator → timeout
-Senior Moderator → ban
-
-
-RESTRICTED
-
-Moderator → timeout
-Senior Moderator → ban with additional checks
-
-
-LOCKDOWN
-
-Normal destructive authority → suspended
-Security controls → tightly scoped
-Emergency authority → limited
-
-The exact behavior is policy-dependent.
-
-Raid and Coordinated Activity
-
-LOG-OS can correlate multiple signals rather than treating one unusual event as proof of a raid.
-
-Potential signals include:
-
-join rate
-
-account age
-
-invite source
-
-verification failures
-
-message bursts
-
-mention bursts
-
-repeated content
-
-account naming patterns
-
-avatar similarities
-
-channel movement
-
-voice activity
-
-permission attempts
-
-webhook activity
-
-repeated links
-
-Possible operational states:
-
-NORMAL
- ↓
-WATCH
- ↓
-GATE
- ↓
-CONTAIN
- ↓
-LOCK
-
-The system can increase protection as evidence accumulates instead of applying maximum restrictions to every abnormal event.
-
-Incident Intelligence
-
-An incident can be represented as a connected structure.
-
-                 INCIDENT
-                    │
-       ┌────────────┼────────────┐
-       │            │            │
-    Accounts      Events       Actions
-       │            │            │
-       └────────────┼────────────┘
-                    │
-                 Evidence
-                    │
-          ┌─────────┴─────────┐
-          │                   │
-      Supporting          Conflicting
-       Evidence            Evidence
-          │                   │
-          └─────────┬─────────┘
-                    ↓
-                 Review
-                    ↓
-                 Outcome
-
-This makes large incidents easier to understand without pretending that correlation automatically proves intent.
-
-E0-1 Security Specialist
-
-E0-1 is an elevated security configuration for environments with more demanding security requirements.
-
-It can extend ordinary LOG-OS operations with:
-
-security monitoring
-
-investigation support
-
-incident correlation
-
-containment
-
-authority analysis
-
-raid response
-
-security cases
-
-emergency restrictions
-
-recovery
-
-E0-1 remains governed by the same principles as the normal system:
-
-Evidence ≠ inference
-Risk ≠ guilt
-Confidence ≠ authority
-Automation ≠ sovereignty
-
-E0-2 Invader Class
-
-E0-2 is the highest-end protective prototype in the LOG-OS architecture.
-
-It is intended for incidents that exceed ordinary moderation:
-
-coordinated harassment
-
-stalking
-
-doxxing attempts
-
-large raid campaigns
-
-fake-account waves
-
-persistent targeting
-
-multi-server incidents
-
-destructive administrative incidents
-
-complex multi-stage security events
-
-E0-2 is not simply a larger moderation bot.
-
-It is an incident coordination system.
-
-Peaceful runs the community.
-E0-1 handles the threat.
-E0-2 handles the situation.
-
-Its objective is to keep the protected environment coherent while the incident is contained, investigated, and resolved.
-
-It is not designed for retaliation.
-
-Auxiliary Sensory Organs
-
-E0-2 can use distributed, authorized LOG-OS agents as auxiliary sensory organs.
-
-These agents operate inside participating environments and provide local observations to the incident system.
-
-AUTHORIZED ENVIRONMENT
-        ↓
-AUXILIARY ORGAN
-        ↓
-LOCAL OBSERVATIONS
-        ↓
-E0-2
-        ↓
-CORRELATION
-        ↓
-INCIDENT PICTURE
-
-An auxiliary organ may observe:
-
-moderation events
-
-audit events
-
-verification events
-
-permission changes
-
-invite activity
-
-account-state changes
-
-voice-state events
-
-local security state
-
-case events
-
-system health
-
-Mobile auxiliary units
-
-Some auxiliary units can be deployed between authorized participating environments.
-
-Deployment can be controlled by:
-
-explicit authorization
-
-capability scope
-
-environment scope
-
-expiration
-
-audit logging
-
-A deployed unit does not gain unlimited authority.
-
-Its authority remains bounded by the environment and deployment scope.
-
-This allows E0-2 to build a distributed operational picture while preserving strict authorization boundaries.
-
-Seeker and AI-Assisted Analysis
-
-Seeker is the AI-assisted analysis interface between E0-2 and an authorized AI agent.
-
-AUTHORIZED ENVIRONMENT
-        ↓
-      LOG-OS
-        ↓
-       E0-2
-        ↓
-      SEEKER
-        ↓
-    AI AGENT
-        ↓
-Analysis / Correlation
-        ↓
-      SEEKER
-        ↓
-       E0-2
-        ↓
-Human / Authorized Decision
-
-AI assistance can help with:
-
-event correlation
-
-timeline reconstruction
-
-repeated-pattern detection
-
-account relationship analysis
-
-timing relationships
-
-counterevidence discovery
-
-incident summarization
-
-investigation suggestions
-
-containment suggestions
-
-large-volume triage
-
-AI does not become the final authority.
-
-The system preserves distinctions such as:
-
-OBSERVED
-INFERRED
-ANALYSIS
-CONFIRMED
-
-The agent may understand more than the automation is allowed to do.
-
-Protection and Serious Harassment Cases
-
-LOG-OS can support serious targeted-harassment and stalking protection cases where ordinary moderation is insufficient.
-
-The objective is protection rather than retaliation.
-
-A protection workflow can involve:
-
-PROTECT PERSON
-      ↓
-VERIFY CONTINUOUSLY
-      ↓
-PRESERVE EVIDENCE
-      ↓
-CORRELATE REPEAT ACTIVITY
-      ↓
-ENFORCE AUTHORIZED BOUNDARIES
-      ↓
-COORDINATE PARTICIPATING ENVIRONMENTS
-      ↓
-ESCALATE WHEN WARRANTED
-
-The disappearance of one account does not necessarily mean the underlying safety case is finished.
-
-A stalking case does not close because the account disappears. It closes when the threat does.
-
-LOG-OS must not be used for:
-
-retaliation
-
-doxxing
-
-account compromise
-
-unauthorized surveillance
-
-intrusion into unrelated communities
-
-harvesting unrelated personal information
-
-Protection requires evidence, authority, and controlled scope.
-
-Engine Room
-
-The Engine Room is the operational health and recovery layer.
-
-Possible states include:
-
-HEALTHY
-DEGRADED
-IMPAIRED
-CRITICAL
-OFFLINE
-RECOVERING
-MAINTENANCE
-
-A controlled maintenance lifecycle can be:
-
-PRECHECK
- ↓
-QUIESCE
- ↓
-DRAIN
- ↓
-SNAPSHOT
- ↓
-ISOLATE
- ↓
-MAINTAIN
- ↓
-SELF-TEST
- ↓
-RECONNECT
- ↓
-VERIFY
- ↓
-RELEASE
-
-The goal is controlled degradation.
-
-A failing subsystem should become a localized problem whenever possible rather than bringing down the entire environment.
-
-Time Machine
-
-The Time Machine concept provides historical understanding of authority and access.
-
-It is intended to answer questions such as:
-
-Who could ban someone yesterday at 9 PM?
-
-Who could see the staff channel at 11:42 PM?
-
-When did this permission change?
-
-Why did this member gain access?
-
-What would restoring this configuration actually change?
-
-Potential capabilities include:
-
-authority snapshots
-
-access snapshots
-
-permission history
-
-rollback
-
-blast-radius previews
-
-historical policy analysis
-
-shadow policy testing
-
-stale authority detection
-
-authority debt tracking
-
-break-glass history
-
-Historical configuration becomes queryable context rather than lost information.
-
-Community Operations
-
-LOG-OS is not only a security system.
-
-Normal community life should remain simple.
-
-Community capabilities can include:
-
-staff dashboards
-
-tickets
-
-role panels
-
+reopen
+ticketarchive
+ticketrole
+```
+
+## Staff operations
+
+```text
+moddash
+mods
+addmod
+removemod
+staffroles
+```
+
+## Clubs / community
+
+```text
 clubs
+club
+create/management commands
+clubspanel
+clubdisplay
+clubpremium
+clubpremiumpromote
+clubstop
+sponsorspanel
+```
 
-sponsors
+## Progression
 
-XP
-
-ranks
-
-profiles
-
+```text
+xp
+rank
+profile
+leaderboard
 achievements
+achievement
+givexp
+removexp
+resetxp
+levelconfig
+levelrole
+memberrole
+xpmultiplier
+grantachievement
+```
+
+## Administration
+
+```text
+setup
+backup
+restore
+serverstats
+serverhealth
+helplogos
+theme
+roleconfig
+rolelist
+rolepanel
+rolepanelremove
+```
 
-activity tracking
+---
 
-statistics
+# Architecture
 
-setup workflows
+The historical source is primarily a **large Red-DiscordBot cog** built on the discord.py ecosystem.
 
-backups
+```text
+Discord
+   │
+   ▼
+Red-DiscordBot
+   │
+   ▼
+LOG-OS Cog
+   ├── Moderation
+   ├── Appeals
+   ├── Verification
+   ├── Security / identity
+   ├── Tickets
+   ├── Voice
+   ├── Community systems
+   ├── Progression
+   ├── Staff panels
+   └── Administration
+           │
+           ▼
+      PostgreSQL
+      (when configured)
+```
+
+Primary technologies visible in the current archive:
+
+- Python
+- Red-DiscordBot
+- `discord.py`
+- `discord.app_commands`
+- `discord.ext.tasks`
+- `asyncio`
+- `asyncpg`
+- PostgreSQL
+- Discord persistent views, buttons, selects, and modals
+
+---
+
+# Installation
+
+These files are **historical source snapshots**. Choose the version you want to run and package/place it according to your Red-DiscordBot cog setup.
+
+For a new deployment, start with **[v48](./Latest/logos_mod_v48.py)** unless you intentionally need an earlier snapshot.
+
+### 1. Have a working Red-DiscordBot instance
+
+Follow the official Red documentation:
+
+https://docs.discord.red/
+
+### 2. Install PostgreSQL support if you want persistent DB storage
+
+```bash
+pip install asyncpg
+```
+
+Then configure:
+
+```bash
+export DATABASE_URL='postgresql://USER:PASSWORD@HOST:5432/DATABASE'
+```
 
-health monitoring
+If `asyncpg` or `DATABASE_URL` is unavailable, later snapshots contain an in-memory fallback for supported paths. Do **not** treat memory-only operation as durable audit storage.
 
-The complexity should remain mostly behind the interface.
+### 3. Put the selected LOG-OS source into your Red cog path
 
-Members should experience a community.
+From Discord, the Red owner can inspect configured cog paths with:
 
-Staff should experience an operating environment.
+```text
+[p]paths
+```
 
-Staff Operations
+`[p]` means your configured Red prefix.
 
-LOG-OS provides staff with a common operational environment.
+### 4. Load the cog
 
-Staff can work with:
+The source snapshots expose Red's standard async setup entry point:
 
-Members
-Cases
-Tickets
-Appeals
-Verification
-Security
-Voice
-Channels
-Roles
-Incidents
+```python
+async def setup(bot: commands.Bot):
+    ...
+```
 
-Because these systems share context, staff can move from an event to its case, from a case to its policy, from a policy to its authority, and from an action to its outcome without reconstructing the entire story manually.
+Once packaged in your Red cog layout, load it using your normal Red cog workflow.
 
-Cross-Platform Architecture
+### 5. Run setup
 
-The long-term goal is for LOG-OS concepts to extend beyond Discord.
+Recent snapshots contain an interactive setup command:
 
-Potential environments include:
+```text
+[p]setup
+```
 
-Minecraft
+Useful later-version commands also include:
 
-Stormworks
+```text
+[p]moddash
+[p]helplogos
+[p]serverhealth
+[p]backup
+```
 
-FiveM
+---
 
-websites
+# Configuration
 
-hosted services
+Later versions read a number of settings from environment variables. v48 includes values such as:
 
-game servers
+```text
+DATABASE_URL
+LOGOS_WARN_DECAY
+LOGOS_WARN_THRESHOLD
+LOGOS_ABUSE_COOLDOWN
+LOGOS_CONFLICT_WINDOW
+LOGOS_DELETE_TIMEOUT
+LOGOS_VERIFY_NUDGE
+LOGOS_MEMBER_ROLE
+LOGOS_ADULT_ROLE
+LOGOS_MOD_LOG_CHANNEL
+LOGOS_WELCOME_CHANNEL
+LOGOS_APPEAL_CHANNEL
+LOGOS_TICKETS_CHANNEL
+LOGOS_TICKET_CATEGORY
+LOGOS_VOICE_TIMEOUT
+LOGOS_SPAM_WINDOW
+LOGOS_TICKET_DAY_LIMIT
+LOGOS_TICKET_MON_LIMIT
+LOGOS_APPEAL_COOLDOWN_DAYS
+LOGOS_VERIFY_CAM_TIMEOUT
+LOGOS_VERIFY_APP_TIMEOUT
+```
 
-infrastructure
+Check the top of the exact source snapshot you intend to run because configuration behavior changes across versions.
 
-additional community platforms
+---
 
-The shared layer can revolve around:
+# Discord permissions
 
-IDENTITY
-POLICY
-AUTHORITY
-EVENTS
-CASES
-SECURITY
+Required Discord permissions depend on which LOG-OS systems you enable. The v48 source documents operational needs including permissions around:
 
-while platform-specific implementations remain independent.
+- Manage Roles
+- Manage Channels
+- Kick Members
+- Ban Members
+- Moderate Members
+- View Audit Log
+- Manage Messages
+- Move Members
 
-This allows the same operating philosophy to exist across different digital environments.
+Additional workflows may require additional Discord permissions.
 
-Scope-Aware Enforcement
+Use the minimum permissions necessary for the features you actually deploy.
 
-Cross-platform systems need careful boundaries.
+---
 
-An action can have a defined scope:
+# Browsing the history
 
-SESSION
-SERVER
-GAME
-COMMUNITY
-NETWORK
-ECOSYSTEM
+This repository is intentionally useful as more than a download page.
 
-An incident in one environment should not automatically become an ecosystem-wide sanction unless policy explicitly permits that outcome.
+A few interesting development paths to follow:
 
-This keeps authority proportional to the actual incident.
+### Moderation → accountability
 
-Modular Design
+[Original](./versions/logos_mod.py) → [v2 appeals](./versions/logos_mod_v2.py) → [v3 action history](./versions/logos_mod_v3.py) → [v28 conflict checking](./versions/logos_mod_v28.py) → [v44 expanded appeals](./versions/logos_mod_v44.py)
 
-LOG-OS is designed around subsystems.
+### Verification → admission intelligence
 
-                       LOG-OS CORE
-                            │
-        ┌───────────────────┼───────────────────┐
-        │                   │                   │
-    Governance           Security           Community
-        │                   │                   │
-    Authority            Sentinel             Profiles
-    Policy               DEFCON               XP
-    Appeals              E0-1                 Clubs
-    Cases                E0-2                 Activity
-        │                   │                   │
-        └───────────────────┼───────────────────┘
-                            │
-                       Event System
-                            │
-                       Case System
-                            │
-                      Persistent DB
+[v8 verification](./versions/logos_mod_v8.py) → [v29 age verification](./versions/logos_mod_v29.py) → [v39 verification sessions](./versions/logos_mod_v39.py) → [v40 invite intelligence](./versions/logos_mod_v40.py) → [v42 velocity/blocklist controls](./versions/logos_mod_v42.py) → [v48 force-verification controls](./versions/logos_mod_v48.py)
 
-Subsystems can evolve independently while sharing common identity, events, authority, policy, and memory.
+### Identity/security evolution
 
-This is intended to prevent every new feature from becoming another isolated bot.
+[v40 invite intelligence](./versions/logos_mod_v40.py) → [v42 join velocity](./versions/logos_mod_v42.py) → [v46 alt intelligence](./versions/logos_mod_v46.py) → [v47 alt networks/offenders](./versions/logos_mod_v47.py)
 
-Resource Boundaries
+### Community-system evolution
 
-Automation needs limits.
+[v11 role panels](./versions/logos_mod_v11.py) → [v15 clubs/activity](./versions/logos_mod_v15.py) → [v17 sponsors](./versions/logos_mod_v17.py) → [v36 club premium](./versions/logos_mod_v36.py) → [v45 XP/profiles/achievements](./versions/logos_mod_v45.py)
 
-An unrestricted automated system can become its own failure mechanism.
+### Operator experience
 
-LOG-OS therefore treats resource limits as part of the architecture.
+[v4 interactive tickets](./versions/logos_mod_v4.py) → [v9 voice panels](./versions/logos_mod_v9.py) → [v22 ModDash](./versions/logos_mod_v22.py) → [v26 setup wizard](./versions/logos_mod_v26.py) → [v44 integrated help](./versions/logos_mod_v44.py)
 
-Potential limits include:
+---
 
-action throughput
+# Archive notes
 
-worker counts
+- Each `.py` file is a **snapshot**, not a patch file.
+- `Latest/` is a convenience collection for the v40 family; `versions/` is the historical archive.
+- Later version numbers do not imply that every previous behavior is unchanged; inspect the version you intend to deploy.
+- The uploaded archive includes **44 Python snapshots**: the original `logos_mod.py` plus numbered versions through v48.
+- **v5, v6, v7 and v41 were not present in the supplied archive.**
+- Several snapshots add substantial internal changes even when their visible command list changes very little.
+- v33 has a notably expanded grouped/slash-command surface that is consolidated again in v34.
 
-queue sizes
+---
 
-API calls
+# Security & privacy
 
-incident processing
+LOG-OS handles moderation and potentially sensitive community-operational data. If you deploy it:
 
-background tasks
+- Never commit Discord bot tokens.
+- Never commit PostgreSQL credentials.
+- Keep moderation/verification exports private unless intentionally disclosed.
+- Review the permissions granted to the bot.
+- Back up persistent data before upgrading between historical snapshots.
+- Test moderation, verification, voice, and restore workflows in a controlled server before production use.
 
-auxiliary agents
+When filing public bug reports, remove member-private information and all credentials from logs.
 
-correlation workload
+---
 
-case processing
+# Contributing / issue reports
 
-When a limit is reached, preferred behavior is controlled degradation:
+When reporting a problem, useful information includes:
 
-LIMIT REACHED
-     ↓
-LOCAL THROTTLE
-     ↓
-PRIORITIZE IMPORTANT WORK
-     ↓
-PRESERVE STATE
-     ↓
-RECOVER
+```text
+LOG-OS source version
+Red-DiscordBot version
+Python version
+Database mode (PostgreSQL / memory)
+Relevant traceback
+Steps to reproduce
+Expected behavior
+Observed behavior
+```
 
-The goal is to prevent a local resource problem from becoming a global failure.
+Historical versions are preserved for reference, comparison, regression testing, and understanding the evolution of the project.
 
-Reliability and Recovery
+---
 
-LOG-OS treats failure as a state to manage.
+<div align="center">
 
-A subsystem may move through:
+## LOG-OS
 
-HEALTHY
- ↓
-DEGRADED
- ↓
-IMPAIRED
- ↓
-RECOVERING
- ↓
-HEALTHY
-
-Recovery systems can use:
-
-snapshots
-
-state verification
-
-rollback
-
-health checks
-
-controlled reconnects
-
-subsystem isolation
-
-maintenance states
-
-recovery records
-
-The system should preserve what happened during recovery as part of its operational history.
-
-Human Authority
-
-LOG-OS is designed to increase human capability, not remove human responsibility.
-
-Humans remain responsible for decisions requiring judgment, especially where:
-
-evidence is ambiguous
-
-consequences are significant
-
-policy is unclear
-
-authority is disputed
-
-external escalation is involved
-
-permanent decisions are considered
-
-Automation can prepare the situation.
-
-It can gather context.
-
-It can identify patterns.
-
-It can enforce known rules.
-
-It can preserve records.
-
-But governance still requires accountable authority.
-
-Security Boundaries
-
-LOG-OS is intended to operate only within environments where it has legitimate authority.
-
-That includes:
-
-owned infrastructure
-
-managed communities
-
-explicitly participating servers
-
-authorized integrations
-
-legitimate bot/API interfaces
-
-Security capabilities are not intended to provide a general-purpose intrusion system.
-
-The architecture is explicitly defensive.
-
-Development Direction
-
-LOG-OS began as a Discord moderation bot and is evolving toward a broader operating-system architecture.
-
-The current implementation and future architecture are treated as one continuing project.
-
-The objective is to preserve:
-
-operational knowledge
-
-workflows
-
-data
-
-authority concepts
-
-case history
-
-user experience
-
-compatibility
-
-system identity
-
-while improving:
-
-performance
-
-modularity
-
-reliability
-
-security
-
-maintainability
-
-cross-platform support
-
-The future Rust architecture is therefore intended as an evolution of LOG-OS rather than a reset.
-
-Implemented, Experimental, and Planned
-
-LOG-OS intentionally distinguishes maturity levels.
-
-Implemented
-
-Capabilities currently present in released versions.
-
-Experimental
-
-Systems being actively tested or prototyped.
-
-Examples can include advanced E0-1/E0-2 systems, distributed auxiliary agents, advanced incident correlation, and AI-assisted analysis.
-
-Planned
-
-Architectural concepts intended for future versions.
-
-Examples include deeper cross-platform support, expanded Time Machine capabilities, broader auxiliary networks, and next-generation architecture.
-
-Documentation may describe all three categories, but they should never be confused.
-
-Project Status
-
-LOG-OS is an actively evolving project.
-
-Current development focuses on:
-
-community governance
-
-security architecture
-
-persistent case memory
-
-authority and access control
-
-incident intelligence
-
-staff operations
-
-verification
-
-appeals
-
-reliability
-
-E0-1/E0-2 development
-
-auxiliary sensory networks
-
-AI-assisted analysis
-
-cross-platform architecture
-
-next-generation implementation
-
-The system is intended to grow from a Discord-focused product into a broader community operating platform.
-
-Design Principle
-
-A traditional moderation bot asks:
-
-What command should run?
-
-LOG-OS asks:
-
-What is happening, what do we actually know, what are we allowed to do, and what should happen next?
-
-WHAT HAPPENED?
-      ↓
-WHAT DO WE KNOW?
-      ↓
-WHAT DO WE THINK?
-      ↓
-WHAT ARGUES AGAINST IT?
-      ↓
-WHAT POLICY APPLIES?
-      ↓
-WHAT AUTHORITY EXISTS?
-      ↓
-WHAT ACTION IS PROPORTIONAL?
-      ↓
-WHAT HAPPENED AFTERWARD?
-      ↓
-WHAT SHOULD THE SYSTEM REMEMBER?
-
-That is the foundation of LOG-OS.
-
-LOG-OS
-
-Moderation with memory.
-
-Accountable authority.
-
-Informed decisions.
-
-Persistent context.
-
-Understand the whole before judging a part.
-
-LongHouse Systems
-
-LOG-OS is developed by LongHouse Systems, an independent technology and game development group focused on building operating systems for communities and worlds.
-
-The broader goal is to build systems that help people:
-
-operate complex communities
-
-govern responsibly
-
-protect people and infrastructure
-
-understand incidents
-
-preserve institutional memory
-
-build persistent digital worlds
-
-LOG-OS is one part of that larger direction.
-
-License
-
-License and contribution policy are determined by the project maintainers.
-
-Status
-
-Active Development — Public Project
-
-This repository represents an evolving system. Architecture, terminology, and subsystem boundaries may change as LOG-OS develops.
+**Moderation with memory.**
