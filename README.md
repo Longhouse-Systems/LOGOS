@@ -72,7 +72,7 @@ Development Direction
 
 Project Status
 
-Sovereign Systems
+LongHouse Systems
 
 What is LOG-OS?
 
@@ -1520,9 +1520,9 @@ Persistent context.
 
 Understand the whole before judging a part.
 
-Sovereign Systems
+LongHouse Systems
 
-LOG-OS is developed by Sovereign Systems, an independent technology and game development group focused on building operating systems for communities and worlds.
+LOG-OS is developed by LongHouse Systems, an independent technology and game development group focused on building operating systems for communities and worlds.
 
 The broader goal is to build systems that help people:
 
