@@ -1,637 +1,619 @@
-<div align="center">
+# LOGOS — Community Operating System
 
-# LOG-OS
+> **Moderation with memory. Accountable authority. Informed decisions.**
+> *Understand the whole before judging a part.*
 
-### Moderation with memory.
-
-**A Discord community-operations system for moderation, verification, staff oversight, security intelligence, appeals, voice operations, activity, and community tooling.**
-
-[![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![Red-DiscordBot](https://img.shields.io/badge/Red--DiscordBot-Cog-c0392b)](https://docs.discord.red/)
-[![Discord](https://img.shields.io/badge/Platform-Discord-5865F2?logo=discord&logoColor=white)](https://discord.com/)
-![Archive](https://img.shields.io/badge/Archive-Original%20%E2%86%92%20v48-202833)
-![Latest family](https://img.shields.io/badge/Latest-v40%20family-5865F2)
-
-**[Latest — v48](./Latest/logos_mod_v48.py)** · **[Latest family](#latest-family)** · **[Version archive](#version-archive)** · **[Feature map](#what-log-os-covers)** · **[Installation](#installation)**
-
-</div>
+**Developed by [Sovereign Systems](https://github.com/Longhouse-Systems)**
 
 ---
 
-## What is LOG-OS?
+LOGOS is not a moderation bot.
 
-LOG-OS is a large [Red-DiscordBot](https://docs.discord.red/) cog that grew from a conventional moderation system into a broader **community operations platform**.
+It is a community operating system — a governance, security, verification, and memory platform built to help people run complex online communities without losing the context behind their decisions.
 
-Most moderation systems can be described like this:
+A traditional moderation bot asks: *what command should run?*
 
-```text
-Member event
-    ↓
-Command
-    ↓
-Punishment
-    ↓
-Log entry
+LOGOS asks:
+
+```
+WHAT HAPPENED?
+      ↓
+WHAT DO WE ACTUALLY KNOW?
+      ↓
+WHAT DO WE THINK IS HAPPENING?
+      ↓
+WHAT ARGUES AGAINST THAT?
+      ↓
+WHAT POLICY APPLIES?
+      ↓
+WHAT AUTHORITY EXISTS?
+      ↓
+WHAT ACTION IS PROPORTIONAL?
+      ↓
+WHAT HAPPENED AFTERWARD?
+      ↓
+WHAT SHOULD THE SYSTEM REMEMBER?
 ```
 
-LOG-OS is built around a larger operational loop:
-
-```text
-Context
-   ↓
-Staff action
-   ↓
-Moderation / verification / security workflow
-   ↓
-Persistent record
-   ↓
-Review / appeal / follow-up
-   ↓
-Future context
-```
-
-The result is a bot that does more than execute commands. It keeps the surrounding **history, staff workflow, verification state, security signals, community systems, and operational records** connected.
-
-> **Every action has context. Every decision leaves a record.**
+That chain — observation, distinction, interpretation, authority, proportional action, outcome, memory — is the foundation of everything LOGOS does.
 
 ---
 
-## Latest snapshot
+## Repository Structure
 
-### [LOG-OS v48](./Latest/logos_mod_v48.py)
+```
+LOGOS/
+├── latest/                  ← Current v40-series release
+│   ├── logos_mod_v48.py     ← Main Redbot cog (134 commands, 61 tables)
+│   ├── logos_api.py         ← FastAPI dashboard backend
+│   ├── logos_server.py      ← Multi-port web server (3 services)
+│   ├── logos_dashboard.html ← Public multi-server staff dashboard
+│   ├── logos_homepage.html  ← Public marketing homepage
+│   └── logos_install.py     ← Self-contained Arch Linux installer
+├── LICENSE
+└── README.md
+```
 
-The supplied v48 source is the largest snapshot in this archive:
-
-- **19,060 lines** of Python
-- **66 classes**
-- **134 command decorators**
-- **32 `discord.ui.View` classes**
-- **85 button decorators**
-- **6 select-menu decorators**
-- **14 background task loops**
-- Red-DiscordBot / discord.py architecture
-- PostgreSQL persistence through `asyncpg`, with memory fallback where supported
-
-v48 includes the mature feature families accumulated across the archive, including moderation, appeals, verification, tickets, voice systems, staff dashboards, setup tooling, clubs, invite intelligence, age verification, XP/profiles, alt intelligence, themes, health/status tooling, warning-expiry controls, and more.
-
-If you are browsing the project for the first time, start with **[v48](./Latest/logos_mod_v48.py)** and use the archive below to see how the system evolved.
+> **Platform:** Python 3.11+ · Red-DiscordBot (Redbot) · PostgreSQL · discord.py
 
 ---
 
-# Repository layout
+## Version History
 
-```text
-LOG-OS/
-├── README.md
-├── Latest/
-│   ├── logos_mod_v40.py
-│   ├── logos_mod_v42.py
-│   ├── logos_mod_v43.py
-│   ├── logos_mod_v44.py
-│   ├── logos_mod_v45.py
-│   ├── logos_mod_v46.py
-│   ├── logos_mod_v47.py
-│   └── logos_mod_v48.py
-└── versions/
-    ├── logos_mod.py
-    ├── logos_mod_v2.py
-    ├── logos_mod_v3.py
-    ├── ...
-    └── logos_mod_v48.py
-```
-
-- **`Latest/`** contains the modern **v40 family** for quick browsing and deployment comparison.
-- **`versions/`** preserves the complete source history supplied with this repository.
-- The archive does not include source snapshots named **v5, v6, v7, or v41**.
-
-# Latest family
-
-The `Latest/` folder is the fastest way to inspect the modern LOG-OS line. These versions represent the v40-era expansion into invite intelligence, security correlation, progression, identity intelligence, and health tooling.
-
-| Version | Focus | Source |
-|---|---|---|
-| **v40** | Invite intelligence foundation | **[Open v40](./Latest/logos_mod_v40.py)** |
-| **v42** | Invite bans/blocklists, join velocity, staff-role expansion | **[Open v42](./Latest/logos_mod_v42.py)** |
-| **v43** | Continued v40-family refinement | **[Open v43](./Latest/logos_mod_v43.py)** |
-| **v44** | Expanded help and softban-appeal workflows | **[Open v44](./Latest/logos_mod_v44.py)** |
-| **v45** | XP, levels, profiles, achievements, progression | **[Open v45](./Latest/logos_mod_v45.py)** |
-| **v46** | Alt-intelligence command family and themes | **[Open v46](./Latest/logos_mod_v46.py)** |
-| **v47** | Confirmed-alt networks, offender registry, invite ranking | **[Open v47](./Latest/logos_mod_v47.py)** |
-| **v48** | Health/status, warning-expiry, verification and club controls | **[Open v48](./Latest/logos_mod_v48.py)** |
-
-> **Recommended starting point:** browse **[v48](./Latest/logos_mod_v48.py)** for the newest snapshot, then use the table above or the complete archive to trace individual systems backward.
+LOGOS has evolved continuously from a simple moderation cog into a full community operating platform. Each major series introduced a new architectural layer.
 
 ---
 
-# What LOG-OS covers
+### v10 Series — Foundation
+*Basic moderation cog for Redbot*
 
-LOG-OS is intentionally broader than a punishment-command cog.
+The beginning. A straightforward set of Discord moderation commands built as a Redbot cog.
 
-| Domain | Included in the archive |
-|---|---|
-| **Moderation** | Warnings, mute/timeout, kicks, bans, unbans, notes, purge, moderation history, staff statistics, conflict checks |
-| **Appeals & review** | Appeals, resolution workflows, softban appeals, appeal routing/modes, resend/recovery tools |
-| **Verification** | Verification panels, manual verification, age verification, verification sessions, staff verification workflow, force verification |
-| **Security intelligence** | Abuse flags, conflict checks, invite intelligence, join velocity, alt checks, alt history, confirmed-alt networks, offender tracking |
-| **Tickets** | Ticket panels, ticket listing, reopening, roles, archive workflow |
-| **Voice operations** | Join-to-create voice, member/staff controls, staff VCs, VC panels, VC moderation oversight |
-| **Staff operations** | ModDash, moderator management, staff-role configuration, superuser/staff controls |
-| **Community** | Clubs, club panels, sponsor panels, color roles, ping roles, welcome/community utilities |
-| **Activity & progression** | Activity panel, XP, levels, rank, leaderboards, profiles, achievements, configurable multipliers/roles |
-| **Server administration** | Setup wizard, backups/restores, role panels, server stats, health checks, themes, configuration commands |
-| **Persistence** | PostgreSQL via `asyncpg` with in-memory fallback where supported |
+**What existed:**
+- `>warn`, `>mute`, `>kick`, `>ban`, `>unban`
+- Basic action logging to a flat table
+- Simple role-based permission checks using Discord native roles
+- In-memory fallback when no database was configured
 
-The defining idea is integration: **moderation remembers, verification has context, security can correlate relationships, and staff actions remain part of an operational history.**
+**What was missing:**
+Everything else. No memory across restarts, no conflict detection, no verification, no appeals. Actions happened and were immediately forgotten.
 
 ---
 
-# Core principles
+### v20 Series — Memory & Structure
+*Persistent database, action history, staff tiers*
 
-### Moderation with memory
+The v20 series introduced PostgreSQL as the persistence layer and the concept of a *moderation record* — not just a log entry, but a structured record with context.
 
-A moderation action should not become an isolated line in a log channel. LOG-OS preserves context around members, staff actions, cases, appeals, verification, and security events.
+**What changed:**
+- PostgreSQL schema with `actions`, `warns`, `notes` tables
+- Staff tier system: `mod` → `senior_mod` → `admin` — each with different authority limits
+- Hard ban limit for mods: 5 bans per 24h with an automatic owner DM above that
+- Moderation notes separate from punitive actions
+- `>history @member` — full action history per member
+- In-memory fallback fully functional for testing without a database
+- `>modstats` — moderator action breakdown
 
-### Risk is not guilt
-
-LOG-OS contains security and identity-correlation systems, but suspicious signals are meant to provide **context for review**, not automatically establish wrongdoing.
-
-### Staff actions matter too
-
-The system includes conflict checks, abuse flagging, action oversight, reason requirements, cooldowns, and review workflows because moderation authority itself should remain observable.
-
-### Community operations, not only punishment
-
-Clubs, activity, progression, role panels, tickets, voice tooling, sponsors, profiles, and other community systems sit beside moderation and security rather than in an unrelated second bot.
+**Architecture shift:** LOGOS started thinking about *who* was doing the action, not just *what* was done.
 
 ---
 
-# Version archive
+### v30 Series — Verification, Voice & Community
+*Verification flow, VC controls, clubs, tickets, XP*
 
-This repository preserves historical LOG-OS source snapshots so the project can be inspected **as it evolved** rather than exposing only the newest build.
+The v30 series expanded LOGOS from a moderation tool into a community platform. Three major systems arrived simultaneously.
 
-> **Note:** The supplied archive does not contain snapshots named **v5, v6, v7, or v41**. The table below links only files that were actually present in the uploaded archive.
+**Verification system:**
+- Three modes: `off`, `camera`, `id`
+- Camera mode: private VC created per session, staff must physically join before approving
+- Unverified member tracking with configurable kick timer
+- Age verification (`>ageverify`) separate from base verification
+- `>forceverify` admin override with full audit trail
 
-## Quick navigator
+**Voice system:**
+- User-owned voice channels — members create VCs by joining a trigger channel
+- VC control panel sent as DM to channel owner
+- Lock, unlock, rename, user limit, kick, allow/block per-user
+- Voice room preference memory — default name and limit saved per member
+- Staff voice action reason system — mods have a configurable window to file a reason after a voice action, otherwise it auto-reverts
 
-| Era | Versions |
-|---|---|
-| **Foundation** | [Original](./versions/logos_mod.py) · [v2](./versions/logos_mod_v2.py) · [v3](./versions/logos_mod_v3.py) · [v4](./versions/logos_mod_v4.py) |
-| **Persistence / verification / voice** | [v8](./versions/logos_mod_v8.py) · [v9](./versions/logos_mod_v9.py) · [v10](./versions/logos_mod_v10.py) · [v11](./versions/logos_mod_v11.py) · [v12](./versions/logos_mod_v12.py) |
-| **Community expansion** | [v13](./versions/logos_mod_v13.py) · [v14](./versions/logos_mod_v14.py) · [v15](./versions/logos_mod_v15.py) · [v16](./versions/logos_mod_v16.py) · [v17](./versions/logos_mod_v17.py) · [v18](./versions/logos_mod_v18.py) · [v19](./versions/logos_mod_v19.py) |
-| **Operations / staff tooling** | [v20](./versions/logos_mod_v20.py) · [v21](./versions/logos_mod_v21.py) · [v22](./versions/logos_mod_v22.py) · [v23](./versions/logos_mod_v23.py) · [v24](./versions/logos_mod_v24.py) · [v25](./versions/logos_mod_v25.py) · [v26](./versions/logos_mod_v26.py) · [v27](./versions/logos_mod_v27.py) · [v28](./versions/logos_mod_v28.py) |
-| **Verification / command-system expansion** | [v29](./versions/logos_mod_v29.py) · [v30](./versions/logos_mod_v30.py) · [v31](./versions/logos_mod_v31.py) · [v32](./versions/logos_mod_v32.py) · [v33](./versions/logos_mod_v33.py) · [v34](./versions/logos_mod_v34.py) · [v35](./versions/logos_mod_v35.py) · [v36](./versions/logos_mod_v36.py) · [v37](./versions/logos_mod_v37.py) · [v38](./versions/logos_mod_v38.py) |
-| **Security / intelligence expansion** | [v39](./versions/logos_mod_v39.py) · [v40](./versions/logos_mod_v40.py) · [v42](./versions/logos_mod_v42.py) · [v43](./versions/logos_mod_v43.py) · [v44](./versions/logos_mod_v44.py) · [v45](./versions/logos_mod_v45.py) · [v46](./versions/logos_mod_v46.py) · [v47](./versions/logos_mod_v47.py) · **[v48](./versions/logos_mod_v48.py)** |
+**Community features:**
+- Clubs — member-created groups with emblem, description, member list, premium tier
+- Sponsors panel — community partner applications
+- Role panel — self-assign roles via buttons
+- XP system — message XP, voice XP, reaction XP, level roles, achievements, multipliers
+- Ticket system — private channel per ticket with claim/close/escalate controls
+- Softban — restricts text while preserving voice access, with appeal flow
 
----
-
-## Evolution at a glance
-
-The descriptions below are based on observable command/class additions between the supplied snapshots. They are intended as an archive guide, not a complete changelog.
-
-| Snapshot | Approx. size | Major visible evolution |
-|---|---:|---|
-| **[Original](./versions/logos_mod.py)** | 487 lines | Core moderation foundation: warn, mute, kick, ban, unban, notes, purge, audit/server stats |
-| **[v2](./versions/logos_mod_v2.py)** | 584 | Appeals, abuse flagging, appeal resolution |
-| **[v3](./versions/logos_mod_v3.py)** | 847 | Action records and member-facing history |
-| **[v4](./versions/logos_mod_v4.py)** | 1,229 | Ticket workflow, message-deletion oversight, interactive ticket UI |
-| **[v8](./versions/logos_mod_v8.py)** | 2,893 | Database layer, verification, moderation utilities, voice systems, audit listeners |
-| **[v9](./versions/logos_mod_v9.py)** | 3,588 | Expanded moderator/council voice-control system and staff VC tooling |
-| **[v11](./versions/logos_mod_v11.py)** | 4,293 | Role configuration and interactive role panels |
-| **[v13](./versions/logos_mod_v13.py)** | 4,465 | Color-role tooling |
-| **[v14](./versions/logos_mod_v14.py)** | 4,608 | Ping-role tooling |
-| **[v15](./versions/logos_mod_v15.py)** | 5,198 | Activity panel and first major clubs/community expansion |
-| **[v16](./versions/logos_mod_v16.py)** | 5,655 | Interactive clubs panel, descriptions and emblems |
-| **[v17](./versions/logos_mod_v17.py)** | 6,014 | Sponsor/community-server panel workflow |
-| **[v18](./versions/logos_mod_v18.py)** | 6,320 | Welcome/nickname-management expansion |
-| **[v19](./versions/logos_mod_v19.py)** | 6,226 | Verification-prefix/reapply workflow |
-| **[v20](./versions/logos_mod_v20.py)** | 6,662 | Server backup and restore commands |
-| **[v21](./versions/logos_mod_v21.py)** | 7,166 | Superuser tooling, ticket roles/archive, expanded staff operations |
-| **[v22](./versions/logos_mod_v22.py)** | 7,788 | **ModDash** introduced |
-| **[v23](./versions/logos_mod_v23.py)** | 8,255 | Richer moderation UI: reason/timeout/warn/kick/ban interaction views |
-| **[v25](./versions/logos_mod_v25.py)** | 8,899 | Softban-management surface and superuser VC panel |
-| **[v26](./versions/logos_mod_v26.py)** | 10,168 | Large interactive **setup wizard** |
-| **[v28](./versions/logos_mod_v28.py)** | 10,268 | Conflict-check command and expanded setup-navigation UI |
-| **[v29](./versions/logos_mod_v29.py)** | 10,724 | Age-verification workflow |
-| **[v31](./versions/logos_mod_v31.py)** | 11,119 | Moderator-target cooldown inspection/control |
-| **[v32](./versions/logos_mod_v32.py)** | 11,442 | Age-verification logs and richer review UI |
-| **[v33](./versions/logos_mod_v33.py)** | 12,237 | Large slash-command grouping experiment / command-surface expansion |
-| **[v34](./versions/logos_mod_v34.py)** | 11,541 | Command surface consolidated after v33 while retaining later feature families |
-| **[v35](./versions/logos_mod_v35.py)** | 11,801 | Club display tooling |
-| **[v36](./versions/logos_mod_v36.py)** | 12,147 | Club premium/promotion workflow |
-| **[v38](./versions/logos_mod_v38.py)** | 12,252 | Role-panel removal/management tooling |
-| **[v39](./versions/logos_mod_v39.py)** | 13,150 | Major verification-session expansion: staff channel, modes, approvals, ID checks |
-| **[v40](./versions/logos_mod_v40.py)** | 13,873 | Invite intelligence: allow/revoke/purge/log/mode/list + invite listeners |
-| **[v42](./versions/logos_mod_v42.py)** | 15,253 | Invite bans/blocklists/checking, staff-role tooling and join-velocity reporting |
-| **[v44](./versions/logos_mod_v44.py)** | 15,988 | Expanded help system and structured softban-appeal workflow |
-| **[v45](./versions/logos_mod_v45.py)** | 17,141 | XP, levels, profiles, achievements, leaderboard and progression system |
-| **[v46](./versions/logos_mod_v46.py)** | 18,005 | Alt-intelligence command family and theme support |
-| **[v47](./versions/logos_mod_v47.py)** | 18,691 | Confirmed-alt networks, alt status, offender registry and invite ranking |
-| **[v48](./versions/logos_mod_v48.py)** | 19,060 | Server-health, warning-expiry, reason-window, force-verification and club-stop controls |
-
-Snapshots not called out individually above are still linked in the [Quick navigator](#quick-navigator) and may contain internal refinements, fixes, or implementation changes even when no large new command family is obvious from the public surface.
+**Background tasks introduced:**
+`check_verify_sessions`, `check_unverified`, `check_timed_mutes`, `check_pending_voice_actions`, `refresh_vc_panels`, `check_xp_voice`, `cleanup_archived_tickets`
 
 ---
 
-# Feature families in v48
+### v40 Series — Intelligence, Detection & Governance
+*Alt detection, Spiral engine, case system, dashboard, installer*
 
-## Moderation
-
-```text
-warn       mute       kick       ban        unban
-notes      purge      lock       unlock     slowmode
-warns      clearwarn  modstats   auditlog   conflictcheck
-```
-
-LOG-OS also tracks moderation action metadata, IDs, reasons, receipts, history, cooldowns, and oversight workflows.
-
-## Appeals
-
-```text
-appeal
-resolveappeal
-appealchannel
-appealmode
-softbanappeals
-resendappeal
-resendappealdecision
-```
-
-Appeal workflows are connected back to moderation state instead of being treated as an unrelated generic support conversation.
-
-## Verification
-
-```text
-verifypanel
-manualverify
-verify
-verifymode
-verifysessions
-verifystaffchannel
-approveverify
-cancelsession
-forceverify
-idcheck
-checkage
-revokeage
-agelog
-```
-
-Verification evolved from a panel into a larger admission/review system with staff workflow and age-verification support.
-
-## Invite intelligence
-
-```text
-invitelist
-invitelog
-invitemode
-inviteallow
-inviterevoke
-invitepurge
-invitecheck
-inviteban
-inviteunban
-inviteblocklist
-inviterank
-velocityreport
-```
-
-Invite creation/deletion and member-join context are also observed by listeners in later snapshots.
-
-## Alt / identity intelligence
-
-```text
-altcheck
-altconfig
-altdeny
-althistory
-altconfirm
-altnetwork
-altstatus
-offenders
-```
-
-The later archive includes multi-signal account relationship analysis and confirmed-alt network tooling rather than relying on one binary indicator.
-
-## Voice operations
-
-```text
-vcsetup
-vcpanel
-vclist
-vcdelete
-vcstafflist
-staffvcdelete
-suvcpanel
-```
-
-LOG-OS contains member, moderator and higher-trust voice-control workflows alongside audit attribution and action-reason oversight.
-
-## Tickets
-
-```text
-ticketpanel
-tickets
-reopen
-ticketarchive
-ticketrole
-```
-
-## Staff operations
-
-```text
-moddash
-mods
-addmod
-removemod
-staffroles
-```
-
-## Clubs / community
-
-```text
-clubs
-club
-create/management commands
-clubspanel
-clubdisplay
-clubpremium
-clubpremiumpromote
-clubstop
-sponsorspanel
-```
-
-## Progression
-
-```text
-xp
-rank
-profile
-leaderboard
-achievements
-achievement
-givexp
-removexp
-resetxp
-levelconfig
-levelrole
-memberrole
-xpmultiplier
-grantachievement
-```
-
-## Administration
-
-```text
-setup
-backup
-restore
-serverstats
-serverhealth
-helplogos
-theme
-roleconfig
-rolelist
-rolepanel
-rolepanelremove
-```
+The v40 series is where LOGOS became something meaningfully different from a moderation bot. The intelligence layer arrived.
 
 ---
 
-# Architecture
+#### v40–v43 — Alt Detection Engine
 
-The historical source is primarily a **large Red-DiscordBot cog** built on the discord.py ecosystem.
+The alt detection system fires on every member join and scores them across 8 independent signals:
 
-```text
-Discord
-   │
-   ▼
-Red-DiscordBot
-   │
-   ▼
-LOG-OS Cog
-   ├── Moderation
-   ├── Appeals
-   ├── Verification
-   ├── Security / identity
-   ├── Tickets
-   ├── Voice
-   ├── Community systems
-   ├── Progression
-   ├── Staff panels
-   └── Administration
-           │
-           ▼
-      PostgreSQL
-      (when configured)
-```
+| Signal | Max Points | Description |
+|--------|-----------|-------------|
+| Account age | +40 | New accounts score higher |
+| Join timing | +50 | Linear decay from last ban event |
+| Invite chain risk | +35 | Inviter's historical ban-to-invite ratio |
+| Username similarity | +30 | Bigram comparison against recent joins |
+| Avatar hash match | +70 | Exact match against banned fingerprints |
+| Public invite clustering | +40 | Catches Disboard-style bypass |
+| Offender registry | +80 | Manual staff-added entries |
+| Confirmed alt network | +90 | Previously confirmed alt pair |
 
-Primary technologies visible in the current archive:
+**Thresholds (all configurable):**
+- `30` — log silently
+- `60` — alert staff
+- `75` — hold for review
+- `90` — auto-kick
 
-- Python
-- Red-DiscordBot
-- `discord.py`
-- `discord.app_commands`
-- `discord.ext.tasks`
-- `asyncio`
-- `asyncpg`
-- PostgreSQL
-- Discord persistent views, buttons, selects, and modals
+**Commands:** `>altconfig`, `>altcheck`, `>altdeny`, `>altconfirm`, `>altstatus`, `>althistory`, `>altnetwork`, `>offenders`, `>inviterank`
+
+**Tables added:** `banned_fingerprints`, `alt_detection_config`, `alt_detections`, `join_clusters`, `offender_registry`, `confirmed_alts`
+
+Ban fingerprints are captured automatically on every ban — the comparison pool grows passively.
 
 ---
 
-# Installation
+#### v44–v45 — Dashboard & Web Infrastructure
 
-These files are **historical source snapshots**. Choose the version you want to run and package/place it according to your Red-DiscordBot cog setup.
+LOGOS became a three-service web application:
 
-For a new deployment, start with **[v48](./Latest/logos_mod_v48.py)** unless you intentionally need an earlier snapshot.
+```
+Port 8080  →  FastAPI backend (internal only)
+Port 8081  →  Public homepage (internet-facing)
+Port 8082  →  Staff dashboard (localhost / SSH tunnel only)
+```
 
-### 1. Have a working Red-DiscordBot instance
+**Public dashboard features:**
+- Discord OAuth2 login — works across every server LOGOS is in
+- Server picker — shows only guilds where you have Manage Server
+- Community Health page — coherence score, stats, live activity timeline
+- Invite Graph — animated network graph of all recorded joins with alt flag overlay
+- Moderation Queue — pending voice reasons with live countdown, open appeals, ticket queue
+- Audit Log — searchable, filterable, CSV export
+- Members — searchable list, profile drill-down, mod history
+- Alt Detection — pending detections, offender registry management, confirm/false-positive
+- XP Leaderboard
+- Clubs directory
+- Panel status with one-click re-post
+- Settings — verify mode, reason window, warn expiry, invite mode, appeal mode
+- Theme editor — accent colour, presets, branding, live Discord embed preview
 
-Follow the official Red documentation:
+**`logos_install.py` — self-contained Arch Linux installer:**
+- Bundles all five files (no internet required after download)
+- Installs PostgreSQL, runs initdb, hardens `pg_hba.conf`, applies `postgresql.conf` tweaks
+- Creates dedicated `logos` system user (nologin, no home)
+- Creates `logos_db` database user with least-privilege grants
+- Runs full 61-table schema
+- Detects or creates Redbot instance, installs cog
+- Collects Discord credentials, sets up `.env` (mode 600)
+- Configures firewall (ufw or iptables script)
+- Installs hardened systemd user service with full sandboxing directives
+- Generates security audit report
 
-https://docs.discord.red/
+---
 
-### 2. Install PostgreSQL support if you want persistent DB storage
+#### v46–v47 — Settings Category & USERDB
+
+**Settings category** — nine persistent panels posted to a SETTINGS Discord category visible to all verified members:
+
+| Channel | Panel | Purpose |
+|---------|-------|---------|
+| `#mod-status` | ModStatusView | Mods toggle on/off duty, set status message |
+| `#call-mod` | CallModView | Members ring on-duty mods with reason |
+| `#clubs-panel` | ClubsManageView | Personal club creation, editing, leaderboard |
+| `#voice-room` | VoiceRoomView | VC preference memory, live channel controls |
+| `#data-request` | DataRequestView | GDPR export/deletion requests |
+| `#mailbox` | MailboxView | Message mod team at any tier (mod/senior/admin) |
+| `#contact-us` | ContactUsView | Tickets, reports, mailbox shortcuts |
+| `#help` | TicketOpenView | Support ticket opener |
+| `#server-info` | Static embed | Server description, rules, stats, socials |
+
+**Mailbox system:**
+- Members choose which tier to contact: Mod / Senior Mod / Admin+Owner
+- Optional anonymous sending
+- Staff reply via `>mailreply <id> <message>` — relayed back to member by bot
+- Full audit trail with timestamps and reply status
+
+**Tables added:** `mailbox_messages`, `voice_room_prefs`, `mod_status`, `call_mod_log`, `data_requests`, `server_info_config`, `settings_panels`, `userdb_whitelist`
+
+**New commands:** `>reasonwindow`, `>warnexpiry`, `>serverhealth`, `>forceverify`, `>clubstop`
+
+---
+
+#### v48 — Panel Redesign, Spiral Engine & Branding
+
+**v48 is the current release.**
+
+**Panel design system:**
+
+All panels redesigned with a consistent visual language:
+
+```
+🟢 Green  — approved / clear / complete
+🟡 Gold   — pending / needs attention
+🟠 Orange — elevated / warning
+🔴 Red    — urgent / blocked / critical
+🔵 Blue   — informational / in progress
+⚫ Dark   — inactive / staff context
+```
+
+Mobile-first: maximum 5 buttons per row, short labels, all mod interactions ephemeral, member VC controls persistent in DM.
+
+**ModDash split into 3 embeds:**
+1. Server Snapshot — member counts, verification status, alert summary, voice activity
+2. Needs Attention — pending voice reasons with live countdown, active mutes, open tickets
+3. Recent Actions — last 6 actions with type icons and relative timestamps
+
+**All panels redesigned:** VerifyView, _VCControlView, ClubsPanelView, SoftbanAppealView, _SoftbanAppealDecisionView, SponsorsPanelView, RolePanelView, _VerifySessionStaffView, VoiceActionReasonView, _AltDecisionView
+
+**Verify + Alt integration:**
+- Alt score shown to staff at session start with colour coding
+- Offender registry and confirmed alt status shown
+- Alt risk warning displayed at the moment of approval if score ≥ hold threshold
+- Staff must be physically in the verification VC to approve
+
+**Spiral Decision Engine (Phase 1–4):**
+
+The Spiral runs before every punitive action. It collects observations silently from existing LOGOS data and evaluates them against a flag framework before any Discord action executes.
+
+```
+>ban @member reason
+      ↓
+Spiral collects observations:
+  account age, server age, prior history, alt score,
+  verification status, COI check, open tickets,
+  actor budget, active appeals, offender registry
+      ↓
+Flags raised if warranted
+      ↓
+CLEAN    → executes silently
+ADVISORY → brief note, executes
+MEDIUM   → mod must acknowledge
+HIGH     → written reason required, senior DM sent
+BLOCK    → hard stop, senior approval required
+      ↓
+Decision record saved permanently
+```
+
+**Flag types:**
+- `COI_DETECTED` — conflict of interest between actor and target
+- `BUDGET_WARNING` / `BUDGET_EXHAUSTED` — approaching or exceeding 24h action budget
+- `NO_ESCALATION_PATH` — first offense, low alt score, no prior history
+- `ACTIVE_APPEAL` — target has a pending appeal
+- `OPEN_TICKET_FILER` — target has an open support ticket
+
+**Action budgets apply to all authority, not just bans:**
+Ban, Kick, Mute, Timeout, Softban, Warn, Channel modifications, Role changes, Verification overrides — all tracked. As a mod approaches their budget, the Spiral starts requiring acknowledgement earlier.
+
+**Spiral commands:**
+- `>spiraldecision <id>` — look up any decision record by ID
+- `>spiraloverrides` — senior staff only, full override history
+- `>challenge <id>` — senior staff only, LOGOS searches for counterevidence and may revise recommendation
+
+**`SpiralAcknowledgeView` and `SpiralOverrideModal`:**
+- MEDIUM flag → "Acknowledge & Proceed" button (one tap)
+- HIGH flag → modal opens, minimum 20 character written justification, permanently logged, senior DM sent
+- BLOCK → buttons disabled, senior DM already sent, cannot self-approve
+
+**Schema additions in v48:** `spiral_observations`, `spiral_evidence`, `spiral_decisions`, `spiral_action_budgets`, `spiral_overrides`, `logos_roles`, `logos_member_roles`, `logos_defcon`, `logos_defcon_history`, `logos_duty_log`, `logos_capability_overrides`
+
+**LOGOS Internal Roles (v48):**
+
+LOGOS maintains its own role system independent of Discord roles. No Discord role needed to grant authority — LOGOS assigns capability sets directly to members.
+
+| Role | Hierarchy | Key Capabilities |
+|------|-----------|-----------------|
+| `owner` | 100 | Wildcard — all capabilities |
+| `administrator` | 80 | Full moderation, authority management, DEFCON control |
+| `senior_mod` | 60 | All moderation, cases, appeals review, verification |
+| `moderator` | 40 | Warn, timeout, kick, softban, basic verification |
+| `junior_mod` | 20 | Warn, timeout only |
+| `appeals_agent` | 30 | Appeals review and resolution, case viewing |
+| `verify_agent` | 15 | Verification approval |
+| `observer` | 5 | Read-only staff view |
+
+**DEFCON system (v48):**
+
+```
+DEFCON 5  🟢  NORMAL      — Full authority active
+DEFCON 4  🔵  WATCH       — Enhanced logging
+DEFCON 3  🟡  ELEVATED    — Sensitive changes need re-verification
+DEFCON 2  🟠  RESTRICTED  — Bans need approval, mass actions frozen
+DEFCON 1  🔴  LOCKDOWN    — Most authority suspended
+DEFCON 0  ⚫  SAFE MODE   — Emergency recovery kernel only
+```
+
+**Sovereign Systems rebranding:**
+All tooling, documentation, and installer references updated from Longhouse Systems to Sovereign Systems.
+
+---
+
+## Feature Summary (v48)
+
+### Moderation
+- Warn, timeout, mute, softban, kick, ban, unban with full receipt system
+- Per-guild warn expiry (`>warnexpiry <days>`)
+- Per-guild voice reason window (`>reasonwindow <seconds>`, 30–600s)
+- COI detection — bidirectional, 14-day decay window
+- Velocity limiting — per tier, per action type
+- Conflict-of-interest gate — blocks mods with recorded interaction against target
+- Moderation notes separate from punitive record
+- `>serverhealth` — coherence score with reason compliance, appeal outcomes, conflict health
+- **Spiral engine** runs before every ban (other punitive actions in progress)
+
+### Verification
+- Three modes: off / camera / id
+- Private VC creation per session
+- Staff must join VC before approving — physically gated
+- Alt score shown at session start and approval point
+- Age verification with separate role grant
+- `>forceverify` admin override
+- Unverified member tracking with configurable kick timer
+
+### Alt Detection
+- 8-signal scoring engine, max 250 points
+- Configurable thresholds (log/alert/hold/kick)
+- Per-signal toggles
+- Score decay on timing signal
+- Offender registry — manual entries with +80pt signal weight
+- Confirmed alt network — +90pt signal weight
+- Fingerprint capture on every ban (avatar hash, username)
+- Daily cleanup task — configurable retention
+- Full command suite: `>altconfig`, `>altcheck`, `>altdeny`, `>altconfirm`, `>altstatus`, `>althistory`, `>altnetwork`, `>offenders`, `>inviterank`
+
+### Voice
+- User-owned voice channels (create-on-join)
+- VC control panel in owner DM — persistent, no timeout
+- Lock/unlock, rename (modal), user limit (modal), kick, allow/block
+- Voice room preference memory (default name, limit, lock state)
+- Staff voice action reason system with per-guild configurable timeout
+- Auto-revert on expired reason window
+
+### Community
+- Clubs — create, join, edit, premium, emblem, member management
+- Clubs leaderboard (`>clubstop`, aliases: `>clubleaderboard`)
+- Sponsors — application panel, staff review, approval flow
+- Self-assign role panel — dynamic buttons from DB config, toggle add/remove
+- XP system — message XP, voice XP (5-min task), reaction XP listener
+- Level roles, multipliers, achievements with DM notification
+- Ticket system — private channels, claim/close/escalate/archive
+
+### Staff Operations
+- ModDash — 3-embed panel, 14-button interface, 2-minute auto-refresh
+- Mailbox — tiered messaging (mod/senior/admin), anonymous option, reply relay
+- Call-mod panel — rings on-duty mods with reason
+- Mod status panel — on/off duty toggle, status message
+- Data request panel — GDPR export/deletion with 30-day SLA tracking
+- Verification queue management from dashboard
+- `>spiraldecision`, `>spiraloverrides`, `>challenge` for Spiral governance
+
+### Web
+- Multi-server OAuth dashboard (Discord login, any server with Manage Server)
+- Live coherence score with breakdown
+- Animated invite network graph with alt flag overlay
+- Queue management — pending reasons, appeals, tickets
+- Audit log with search, filter, CSV export
+- Member profiles with history drill-down
+- Alt detection management — confirm/false-positive, whitelist
+- XP leaderboard
+- Panel status with one-click re-post
+- Settings editor (all guild config)
+- Theme editor — 6 presets, custom colours, live Discord embed preview
+
+### Security & Infrastructure
+- **Spiral Decision Engine** — observation, flag, proportionality, acknowledgement
+- **LOGOS Internal Roles** — capability-based authority independent of Discord roles
+- **DEFCON system** — 6 levels, reduces effective authority without rewriting roles
+- **Action budgets** — per-mod per-action-type 24h limits across all authority types
+- **Pool lifecycle management** — `_closing` flag, race condition protection on reload
+- **14 background tasks** — all guarded with pool-alive check
+- Hardened systemd service — NoNewPrivileges, PrivateTmp, ProtectSystem=strict, MemoryDenyWriteExecute, CapabilityBoundingSet=∅
+- Dedicated `logos` system user (nologin)
+- PostgreSQL hardening — localhost-only, scram-sha-256, least-privilege grants
+- `.env` mode 600, secret key from `/dev/urandom`
+- Firewall — only port 8081 exposed publicly, 8082 localhost-only
+
+---
+
+## Database (61 Tables)
+
+| Category | Tables |
+|----------|--------|
+| Core moderation | `actions`, `warns`, `notes`, `appeals`, `mod_cooldowns`, `per_target_cooldowns`, `abuse_flags`, `pending_voice_actions`, `pending_deletes`, `action_spam_tracker`, `action_velocity` |
+| Members | `unverified_members`, `softban_list`, `softban_appeals`, `age_verifications`, `superuser_ids` |
+| Verification | `verify_sessions` |
+| Tickets | `tickets` |
+| Voice | `user_voice_channels` |
+| Invites | `invite_tracking`, `invite_snapshots` |
+| Clubs | `clubs`, `club_members` |
+| Sponsors | `sponsors` |
+| XP | `xp_config`, `member_xp`, `xp_events`, `level_roles`, `xp_multipliers`, `achievements`, `member_achievements` |
+| Theme | `guild_theme`, `guild_panel_overrides` |
+| Dashboard | `dashboard_jobs` |
+| Alt Detection | `banned_fingerprints`, `alt_detection_config`, `alt_detections`, `join_clusters`, `offender_registry`, `confirmed_alts` |
+| Settings | `mailbox_messages`, `voice_room_prefs`, `mod_status`, `call_mod_log`, `data_requests`, `server_info_config`, `settings_panels`, `userdb_whitelist` |
+| LOGOS Roles | `logos_roles`, `logos_member_roles`, `logos_defcon`, `logos_defcon_history`, `logos_duty_log`, `logos_capability_overrides` |
+| Spiral | `spiral_observations`, `spiral_evidence`, `spiral_decisions`, `spiral_action_budgets`, `spiral_overrides` |
+| Guild | `guild_settings` |
+
+---
+
+## Background Tasks (14)
+
+| Task | Interval | Purpose |
+|------|----------|---------|
+| `check_verify_sessions` | 60s | Expire stale verification sessions |
+| `check_invites` | 15s | Enforce invite mode, track join sources |
+| `check_dashboard_jobs` | 5s | Process queued dashboard actions |
+| `check_xp_voice` | 5m | Award XP for voice time |
+| `check_pending_deletes` | 1m | Execute scheduled message deletions |
+| `check_pending_voice_actions` | 10s | Per-guild timeout, auto-revert voice actions |
+| `check_unverified` | 1m | Kick unverified members past deadline |
+| `update_activity_panel` | 30m | Refresh activity statistics |
+| `refresh_moddash_panels` | 2m | Push updated 3-embed ModDash |
+| `check_timed_mutes` | 30s | Lift expired mutes |
+| `check_warn_expiry` | 10m | Mark expired warns inactive |
+| `refresh_vc_panels` | 90s | Update VC panel embeds |
+| `cleanup_archived_tickets` | 6h | Delete archived ticket channels past retention |
+| `cleanup_alt_data` | 24h | Purge fingerprints and clusters past retention |
+
+---
+
+## Installation (Arch Linux)
 
 ```bash
-pip install asyncpg
+# Download the self-contained installer
+curl -O https://raw.githubusercontent.com/Longhouse-Systems/LOGOS/main/latest/logos_install.py
+
+# Run it — sudo is requested only when needed
+python3 logos_install.py
 ```
 
-Then configure:
+The installer handles everything: PostgreSQL, schema, Redbot detection, cog install, Discord credentials, firewall, systemd service, security audit.
 
-```bash
-export DATABASE_URL='postgresql://USER:PASSWORD@HOST:5432/DATABASE'
+**Requirements:**
+- Arch Linux (pacman)
+- Python 3.11+
+- Red-DiscordBot installed or installable via pip
+- A Discord application with bot token and OAuth2 secret
+
+**Manual install (any Linux):**
+1. Copy `logos_mod_v48.py` to your Redbot cog directory as `logos.py`
+2. Set `DATABASE_URL` in your environment
+3. Load with `[p]load logos` then run `>setup`
+
+---
+
+## Quick Start
+
 ```
-
-If `asyncpg` or `DATABASE_URL` is unavailable, later snapshots contain an in-memory fallback for supported paths. Do **not** treat memory-only operation as durable audit storage.
-
-### 3. Put the selected LOG-OS source into your Red cog path
-
-From Discord, the Red owner can inspect configured cog paths with:
-
-```text
-[p]paths
-```
-
-`[p]` means your configured Red prefix.
-
-### 4. Load the cog
-
-The source snapshots expose Red's standard async setup entry point:
-
-```python
-async def setup(bot: commands.Bot):
-    ...
-```
-
-Once packaged in your Red cog layout, load it using your normal Red cog workflow.
-
-### 5. Run setup
-
-Recent snapshots contain an interactive setup command:
-
-```text
-[p]setup
-```
-
-Useful later-version commands also include:
-
-```text
-[p]moddash
-[p]helplogos
-[p]serverhealth
-[p]backup
+[p]load logos       — load the cog
+>setup              — interactive setup wizard
+>moddash            — post the staff dashboard
+>verifypanel        — post the verification panel
+>altconfig          — configure alt detection
+>defcon             — view current DEFCON level
+>role list          — view LOGOS internal roles
 ```
 
 ---
 
-# Configuration
+## What's Coming
 
-Later versions read a number of settings from environment variables. v48 includes values such as:
+The following systems are designed and in active development:
 
-```text
-DATABASE_URL
-LOGOS_WARN_DECAY
-LOGOS_WARN_THRESHOLD
-LOGOS_ABUSE_COOLDOWN
-LOGOS_CONFLICT_WINDOW
-LOGOS_DELETE_TIMEOUT
-LOGOS_VERIFY_NUDGE
-LOGOS_MEMBER_ROLE
-LOGOS_ADULT_ROLE
-LOGOS_MOD_LOG_CHANNEL
-LOGOS_WELCOME_CHANNEL
-LOGOS_APPEAL_CHANNEL
-LOGOS_TICKETS_CHANNEL
-LOGOS_TICKET_CATEGORY
-LOGOS_VOICE_TIMEOUT
-LOGOS_SPAM_WINDOW
-LOGOS_TICKET_DAY_LIMIT
-LOGOS_TICKET_MON_LIMIT
-LOGOS_APPEAL_COOLDOWN_DAYS
-LOGOS_VERIFY_CAM_TIMEOUT
-LOGOS_VERIFY_APP_TIMEOUT
+**Zone System** — flat channel access zones (Gateway/Member/Age-Verified/Trusted/Softban/Contained/Staff). Every channel belongs to a zone. Every member belongs to a zone. LOGOS manages all Discord permission overwrites automatically on zone transitions. Every behavior per zone is configurable (text, voice, features, visibility).
+
+**LOGOS Permissions** — per-member capability grants and Discord channel/category overrides managed by LOGOS independently of Discord roles. `>permit @member #channel`, `>deny @member capability`, `>perms @member`, `>whycan @member action`.
+
+**Case & Investigation System** — any member can open `>case @user <description>`. Emergency page to bot owner. Per-case HUD in private server with overview, timeline, evidence, actions, and comms channels. Controlled server owner notifications with tone options. Harassment watchlist for confirmed cases.
+
+**Cross-Server Safety Network** — network-wide fingerprint sharing, global ban enforcement across all LOGOS servers, personal watchlist gated on active harassment case.
+
+**Spiral Phase 5+ — Challenge LOGOS** — senior staff can challenge any Spiral decision. LOGOS searches for counterevidence and may revise recommendation. Full `>challenge <id>` flow.
+
+**Settings Category Completion** — zone-based enforcement for the full settings category. All 9 panels wired to zone transitions.
+
+**Sovereign Systems Homepage** — updated public site reflecting new branding.
+
+---
+
+## The Spiral
+
+Every punitive action in LOGOS passes through the Spiral before executing.
+
+```
+                    SPIRAL
+                       │
+                POLICY ENGINE
+                       │
+           ┌───────────┴───────────┐
+           │                       │
+       IDENTITY                CONTEXT
+           │                       │
+           └───────────┬───────────┘
+                       │
+                LOGOS AUTHORITY
+                       │
+             ROLES + CAPABILITIES
+                       │
+                    SCOPES
+                       │
+          MEMBER + CHANNEL POLICIES
+                       │
+                  CONDITIONS
+                       │
+                    DEFCON
+                       │
+                   SENTINEL
+                       │
+             SECURITY / CONFLICT
+                       │
+          EFFECTIVE AUTHORITY
+                       │
+       EFFECTIVE CHANNEL ACCESS
+                       │
+             DISCORD ENFORCEMENT
+                       │
+              ACTION / CONTAIN
+                       │
+              CASE + AUDIT LOG
+                       │
+             REVIEW / CHALLENGE
+                       │
+             ROLLBACK / RECOVER
+                       │
+                    SPIRAL
 ```
 
-Check the top of the exact source snapshot you intend to run because configuration behavior changes across versions.
+The Spiral does not replace human judgment. It gives humans enough context to exercise it well.
+
+**Core principles:**
+
+> Evidence ≠ Inference
+> Risk ≠ Guilt
+> Confidence ≠ Authority
+> Authority ≠ Immunity From Review
+> Containment ≠ Punishment
+> Automation ≠ Sovereignty
 
 ---
 
-# Discord permissions
+## Philosophy
 
-Required Discord permissions depend on which LOG-OS systems you enable. The v48 source documents operational needs including permissions around:
+Communities are not collections of isolated commands. They are systems — with history, relationships, policies, authority structures, and accumulated context.
 
-- Manage Roles
-- Manage Channels
-- Kick Members
-- Ban Members
-- Moderate Members
-- View Audit Log
-- Manage Messages
-- Move Members
+LOGOS is built around one conviction: *the context surrounding a decision matters as much as the decision itself.*
 
-Additional workflows may require additional Discord permissions.
+A warning doesn't exist in isolation. It exists because of something that happened, issued by someone with particular authority, against a member with a particular history, under a particular policy, at a particular security state. That full picture is what makes the warning meaningful — or questionable.
 
-Use the minimum permissions necessary for the features you actually deploy.
+LOGOS preserves that picture.
 
 ---
 
-# Browsing the history
+## About Sovereign Systems
 
-This repository is intentionally useful as more than a download page.
+Sovereign Systems is an independent technology group focused on building operating systems for communities and digital worlds.
 
-A few interesting development paths to follow:
+LOGOS is one part of a broader direction: tools that help people govern responsibly, protect members and infrastructure, understand incidents, and preserve institutional memory.
 
-### Moderation → accountability
+**License:** Apache 2.0
 
-[Original](./versions/logos_mod.py) → [v2 appeals](./versions/logos_mod_v2.py) → [v3 action history](./versions/logos_mod_v3.py) → [v28 conflict checking](./versions/logos_mod_v28.py) → [v44 expanded appeals](./versions/logos_mod_v44.py)
-
-### Verification → admission intelligence
-
-[v8 verification](./versions/logos_mod_v8.py) → [v29 age verification](./versions/logos_mod_v29.py) → [v39 verification sessions](./versions/logos_mod_v39.py) → [v40 invite intelligence](./versions/logos_mod_v40.py) → [v42 velocity/blocklist controls](./versions/logos_mod_v42.py) → [v48 force-verification controls](./versions/logos_mod_v48.py)
-
-### Identity/security evolution
-
-[v40 invite intelligence](./versions/logos_mod_v40.py) → [v42 join velocity](./versions/logos_mod_v42.py) → [v46 alt intelligence](./versions/logos_mod_v46.py) → [v47 alt networks/offenders](./versions/logos_mod_v47.py)
-
-### Community-system evolution
-
-[v11 role panels](./versions/logos_mod_v11.py) → [v15 clubs/activity](./versions/logos_mod_v15.py) → [v17 sponsors](./versions/logos_mod_v17.py) → [v36 club premium](./versions/logos_mod_v36.py) → [v45 XP/profiles/achievements](./versions/logos_mod_v45.py)
-
-### Operator experience
-
-[v4 interactive tickets](./versions/logos_mod_v4.py) → [v9 voice panels](./versions/logos_mod_v9.py) → [v22 ModDash](./versions/logos_mod_v22.py) → [v26 setup wizard](./versions/logos_mod_v26.py) → [v44 integrated help](./versions/logos_mod_v44.py)
+**Status:** Active Development — Public Project
 
 ---
 
-# Archive notes
-
-- Each `.py` file is a **snapshot**, not a patch file.
-- `Latest/` is a convenience collection for the v40 family; `versions/` is the historical archive.
-- Later version numbers do not imply that every previous behavior is unchanged; inspect the version you intend to deploy.
-- The uploaded archive includes **44 Python snapshots**: the original `logos_mod.py` plus numbered versions through v48.
-- **v5, v6, v7 and v41 were not present in the supplied archive.**
-- Several snapshots add substantial internal changes even when their visible command list changes very little.
-- v33 has a notably expanded grouped/slash-command surface that is consolidated again in v34.
-
----
-
-# Security & privacy
-
-LOG-OS handles moderation and potentially sensitive community-operational data. If you deploy it:
-
-- Never commit Discord bot tokens.
-- Never commit PostgreSQL credentials.
-- Keep moderation/verification exports private unless intentionally disclosed.
-- Review the permissions granted to the bot.
-- Back up persistent data before upgrading between historical snapshots.
-- Test moderation, verification, voice, and restore workflows in a controlled server before production use.
-
-When filing public bug reports, remove member-private information and all credentials from logs.
-
----
-
-# Contributing / issue reports
-
-When reporting a problem, useful information includes:
-
-```text
-LOG-OS source version
-Red-DiscordBot version
-Python version
-Database mode (PostgreSQL / memory)
-Relevant traceback
-Steps to reproduce
-Expected behavior
-Observed behavior
-```
-
-Historical versions are preserved for reference, comparison, regression testing, and understanding the evolution of the project.
-
----
-
-<div align="center">
-
-## LOG-OS
-
-**Moderation with memory.**
+*LOGOS — Built by Sovereign Systems*
